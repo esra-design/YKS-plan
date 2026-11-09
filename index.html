@@ -3,630 +3,2748 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AFTER HOURS | YKS Journal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090909">
+<title>AFTER HOURS — YKS JOURNAL</title>
+
 <style>
-:root{
- --bg:#101114;--panel:#191a1e;--panel2:#202126;
- --text:#ededee;--muted:#92939b;--line:#303137;
- --accent:#a7a7b0;--green:#9aafa0;
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap');
+
+:root {
+  --bg:#090909;
+  --panel:#111111;
+  --panel2:#171717;
+  --panel3:#202020;
+  --line:#292929;
+  --text:#e9e9e9;
+  --muted:#858585;
+  --soft:#b9b9b9;
+  --accent:#c2c2c2;
+  --success:#a8b7a5;
+  --danger:#bd8585;
+  --radius:15px;
 }
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);
- font-family:Inter,Arial,sans-serif;line-height:1.6}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-.hero{
- min-height:310px;display:flex;align-items:flex-end;
- padding:35px 7%;position:relative;overflow:hidden;
- background:linear-gradient(0deg,#101114 0%,#10111455 60%,#10111433),
- url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1800') center 48%/cover;
- filter:grayscale(1)
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  line-height:1.6;
 }
-.hero-content{filter:none;position:relative;z-index:1}
-.eyebrow{font-size:11px;letter-spacing:4px;color:#c3c3c7}
-.hero h1{font-size:clamp(36px,7vw,65px);letter-spacing:5px;
- margin:8px 0;font-weight:300}
-.hero p{color:#d0d0d3;margin:0}
-nav{position:sticky;top:0;z-index:10;background:#121316ed;
- backdrop-filter:blur(15px);border-bottom:1px solid var(--line);
- display:flex;gap:7px;padding:12px 4%;overflow-x:auto}
-nav a{color:#aaa;text-decoration:none;white-space:nowrap;
- padding:7px 12px;border-radius:6px;font-size:12px}
-nav a:hover{background:#303137;color:white}
-.container{max-width:1150px;margin:auto;padding:28px 18px 70px}
-section{margin-bottom:40px;scroll-margin-top:80px}
-.section-title{font-size:20px;font-weight:400;letter-spacing:1px;
- margin:0 0 15px}
-.sub{color:var(--muted);font-size:12px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px}
-.card{background:var(--panel);border:1px solid var(--line);
- border-radius:12px;padding:18px;min-width:0}
-.stat strong{font-size:29px;font-weight:300;display:block}
-.stat span{color:var(--muted);font-size:11px;letter-spacing:1px}
-.countdown{background:#202126;padding:25px;border-radius:12px;
- text-align:center;border:1px solid #37383e}
-.count-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
- max-width:600px;margin:20px auto}
-.count-grid strong{font-size:clamp(25px,5vw,40px);font-weight:300;display:block}
-.count-grid span{font-size:10px;color:#aaa;letter-spacing:2px}
-input,textarea,select{background:#111216;color:var(--text);
- border:1px solid var(--line);border-radius:7px;padding:10px;width:100%;
- outline:none}
-input:focus,textarea:focus{border-color:#92939b}
-textarea{resize:vertical}
-label{display:block;color:var(--muted);font-size:12px;margin:9px 0 5px}
-.btn{background:#303137;color:white;border:1px solid #45464d;
- border-radius:7px;padding:9px 13px;font-size:12px}
-.btn:hover{background:#484950}
-.btn.main{background:#dedee1;color:#16171a;border:0}
-.btn.danger{color:#d99a9a}
-.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
-.between{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.progress{height:5px;background:#34353b;border-radius:10px;overflow:hidden;margin:13px 0}
-.progress div{height:100%;background:#aaaeb3;transition:.3s}
-.course{margin-bottom:12px}
-.course h3{font-size:16px;font-weight:400;margin:0}
-.course small{color:var(--muted)}
-.course-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
-.course-actions button{font-size:11px}
-.tag{font-size:10px;color:#c2c2c7;border:1px solid #44454b;
- padding:4px 8px;border-radius:20px}
-.player{display:flex;gap:15px;align-items:center;flex-wrap:wrap}
-.player-art{width:80px;height:80px;object-fit:cover;filter:grayscale(1);
- border-radius:5px;background:#303137}
-#youtubeFrame{width:100%;max-width:430px;aspect-ratio:16/9;border:0;
- border-radius:8px}
-#youtubeFrame.hidden-player{position:fixed;width:1px;height:1px;
- opacity:0;left:-10px;bottom:0;pointer-events:none}
-#youtubeFrame.compact-player{max-width:190px}
-#youtubeFrame.expanded-player{max-width:430px}
-.photo{max-width:100%;max-height:300px;object-fit:cover;
- border-radius:8px;margin-top:12px;filter:grayscale(1)}
-.timer{text-align:center;padding:25px}
-.timer-number{font-size:65px;font-weight:200;letter-spacing:4px}
-textarea{min-height:95px}
-.entry{border-bottom:1px solid var(--line);padding:12px 0}
-.entry:last-child{border:0}
-.check{display:flex;gap:9px;align-items:center;margin:8px 0}
-.check input{width:auto}
-.muted{color:var(--muted)}
-footer{text-align:center;padding:25px;color:#686970;font-size:11px}
-#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
- background:#ddd;color:#111;padding:10px 20px;border-radius:8px;
- display:none;z-index:30;font-size:12px}
-@media(max-width:550px){
- .hero{min-height:250px;padding:25px 20px}
- .count-grid{gap:3px}
- .container{padding:22px 13px}
+
+button,input,textarea,select {
+  font:inherit;
+}
+
+button {
+  cursor:pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline:1px solid #aaa;
+  outline-offset:3px;
+}
+
+a { color:inherit; }
+
+.app {
+  width:min(1250px,94%);
+  margin:auto;
+  padding-bottom:80px;
+}
+
+.topbar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:24px 0;
+  border-bottom:1px solid var(--line);
+  gap:15px;
+}
+
+.logo {
+  font-family:'Playfair Display',serif;
+  letter-spacing:4px;
+  font-size:19px;
+}
+
+.logo small {
+  display:block;
+  font-family:'DM Sans',sans-serif;
+  font-size:9px;
+  color:var(--muted);
+  letter-spacing:3px;
+  margin-top:3px;
+}
+
+.nav {
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+}
+
+.nav button {
+  background:transparent;
+  border:1px solid transparent;
+  color:var(--muted);
+  padding:9px 12px;
+  font-size:11px;
+  letter-spacing:1px;
+  border-radius:8px;
+}
+
+.nav button:hover,
+.nav button.active {
+  color:var(--text);
+  border-color:var(--line);
+  background:var(--panel2);
+}
+
+.hero {
+  height:310px;
+  margin:25px 0;
+  border-radius:var(--radius);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:end;
+  padding:35px;
+  background:
+    linear-gradient(0deg,rgba(0,0,0,.85),rgba(0,0,0,.05)),
+    linear-gradient(90deg,rgba(0,0,0,.35),transparent),
+    url('https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=1800') center 55%/cover;
+  filter:grayscale(1);
+}
+
+.hero-content {
+  position:relative;
+  filter:grayscale(1);
+}
+
+.hero h1 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(32px,5vw,54px);
+  font-weight:400;
+  letter-spacing:2px;
+  margin:0;
+}
+
+.hero p {
+  color:#ccc;
+  font-size:12px;
+  letter-spacing:2px;
+}
+
+.eyebrow {
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+
+h2,h3,h4 {
+  font-weight:400;
+}
+
+h2 {
+  font-family:'Playfair Display',serif;
+  font-size:27px;
+}
+
+h3 {
+  font-size:16px;
+}
+
+.section {
+  display:none;
+  animation:fade .25s ease;
+}
+
+.section.active {
+  display:block;
+}
+
+@keyframes fade {
+  from { opacity:0; transform:translateY(5px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+.section-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  flex-wrap:wrap;
+  gap:15px;
+  margin:35px 0 20px;
+}
+
+.section-head h2 {
+  margin:5px 0;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:15px;
+}
+
+.grid3 {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:15px;
+}
+
+.card {
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:20px;
+  min-width:0;
+}
+
+.card-title {
+  color:var(--muted);
+  text-transform:uppercase;
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+.stat {
+  font-family:'Playfair Display',serif;
+  font-size:32px;
+  margin:8px 0 0;
+}
+
+.sub {
+  color:var(--muted);
+  font-size:12px;
+}
+
+.muted {
+  color:var(--muted);
+}
+
+.small {
+  font-size:11px;
+}
+
+.btn {
+  background:var(--panel3);
+  color:var(--text);
+  border:1px solid var(--line);
+  padding:9px 13px;
+  border-radius:8px;
+  font-size:12px;
+  transition:.2s;
+}
+
+.btn:hover {
+  background:#303030;
+}
+
+.btn.main {
+  background:#d0d0d0;
+  color:#111;
+  border-color:#d0d0d0;
+}
+
+.btn.danger {
+  color:#d49a9a;
+}
+
+.btn.success {
+  color:#b9ceb5;
+}
+
+.btn:disabled {
+  opacity:.4;
+  cursor:not-allowed;
+}
+
+.row {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  flex-wrap:wrap;
+}
+
+.between {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+input,textarea,select {
+  background:#0d0d0d;
+  color:var(--text);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:11px 12px;
+  width:100%;
+  outline:none;
+}
+
+input::placeholder,textarea::placeholder {
+  color:#696969;
+}
+
+textarea {
+  min-height:100px;
+  resize:vertical;
+}
+
+label {
+  color:var(--soft);
+  font-size:12px;
+}
+
+.field {
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  margin-bottom:13px;
+}
+
+.divider {
+  border:0;
+  border-top:1px solid var(--line);
+  margin:18px 0;
+}
+
+.badge {
+  display:inline-block;
+  background:#252525;
+  color:#bbb;
+  padding:4px 9px;
+  border-radius:20px;
+  font-size:10px;
+}
+
+.progress {
+  height:5px;
+  background:#292929;
+  border-radius:10px;
+  overflow:hidden;
+  margin:12px 0;
+}
+
+.progress span {
+  display:block;
+  height:100%;
+  background:#bdbdbd;
+  transition:.3s;
+}
+
+.task {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 0;
+  border-bottom:1px solid #242424;
+}
+
+.task:last-child {
+  border-bottom:0;
+}
+
+.task input[type=checkbox] {
+  width:17px;
+  height:17px;
+  accent-color:#bbb;
+  flex-shrink:0;
+}
+
+.task.done .task-name {
+  text-decoration:line-through;
+  color:#777;
+}
+
+.task-name {
+  flex:1;
+  font-size:13px;
+  min-width:0;
+}
+
+.task-actions {
+  display:flex;
+  gap:5px;
+}
+
+.icon-btn {
+  background:transparent;
+  color:#777;
+  border:0;
+  padding:5px;
+  font-size:12px;
+}
+
+.icon-btn:hover {
+  color:white;
+}
+
+.week-grid {
+  display:grid;
+  grid-template-columns:repeat(7,minmax(0,1fr));
+  gap:7px;
+}
+
+.day-btn {
+  border:1px solid var(--line);
+  background:#101010;
+  color:var(--muted);
+  border-radius:10px;
+  padding:12px 3px;
+  text-align:center;
+  font-size:11px;
+  cursor:pointer;
+}
+
+.day-btn.selected {
+  background:#dedede;
+  color:#111;
+}
+
+.day-btn.today {
+  border-color:#aaa;
+}
+
+.day-btn small {
+  display:block;
+  font-size:9px;
+  margin-top:5px;
+}
+
+.campaign {
+  border:1px solid var(--line);
+  background:var(--panel);
+  padding:18px;
+  border-radius:var(--radius);
+  margin-bottom:12px;
+}
+
+.campaign h3 {
+  margin:0;
+  font-size:17px;
+}
+
+.campaign-meta {
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin:10px 0;
+}
+
+.campaign-meta span {
+  font-size:10px;
+  color:var(--muted);
+  background:#202020;
+  padding:4px 8px;
+  border-radius:5px;
+}
+
+.photo-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.photo-grid img {
+  width:100%;
+  height:190px;
+  object-fit:cover;
+  filter:grayscale(1);
+  border-radius:12px;
+}
+
+.quote {
+  font-family:'Playfair Display',serif;
+  font-size:23px;
+  line-height:1.5;
+  color:#ccc;
+}
+
+.timer {
+  font-family:'Playfair Display',serif;
+  font-size:65px;
+  text-align:center;
+  margin:25px 0;
+  letter-spacing:3px;
+}
+
+.timer-mode {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.chart-bars {
+  height:180px;
+  display:flex;
+  align-items:end;
+  gap:10px;
+  padding-top:20px;
+}
+
+.bar-wrap {
+  flex:1;
+  text-align:center;
+  min-width:0;
+}
+
+.bar {
+  width:100%;
+  max-width:45px;
+  margin:auto;
+  background:#aaa;
+  border-radius:5px 5px 0 0;
+  min-height:2px;
+}
+
+.bar-label {
+  font-size:10px;
+  color:var(--muted);
+  margin-top:7px;
+}
+
+.player-box {
+  background:#080808;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+
+.player-top {
+  padding:15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.player-frame {
+  width:100%;
+  aspect-ratio:16/9;
+  border:0;
+  display:block;
+}
+
+.player-box.compact .player-frame {
+  width:260px;
+  max-width:100%;
+  aspect-ratio:16/9;
+  margin:0 15px 15px;
+}
+
+.player-box.hidden-player .player-frame {
+  width:1px;
+  height:1px;
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+
+.player-box.hidden-player {
+  border-color:transparent;
+  background:transparent;
+}
+
+.footer {
+  text-align:center;
+  padding:40px 0;
+  color:#555;
+  font-size:10px;
+  letter-spacing:3px;
+}
+
+.countdown {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.count-unit {
+  background:#111;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:17px 5px;
+  text-align:center;
+}
+
+.count-unit strong {
+  display:block;
+  font-family:'Playfair Display',serif;
+  font-size:30px;
+}
+
+.count-unit small {
+  color:var(--muted);
+  font-size:9px;
+  letter-spacing:2px;
+}
+
+.modal {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  z-index:20;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal.show {
+  display:flex;
+}
+
+.modal-inner {
+  width:min(500px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#151515;
+  border:1px solid #333;
+  border-radius:15px;
+  padding:22px;
+}
+
+.toast {
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#eee;
+  color:#111;
+  border-radius:9px;
+  padding:10px 18px;
+  font-size:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:50;
+}
+
+.toast.show {
+  opacity:1;
+}
+
+@media(max-width:750px) {
+  .topbar {
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .nav {
+    width:100%;
+  }
+
+  .nav button {
+    font-size:9px;
+    padding:8px;
+  }
+
+  .hero {
+    height:240px;
+    padding:22px;
+  }
+
+  .grid,.grid3 {
+    grid-template-columns:1fr;
+  }
+
+  .week-grid {
+    gap:4px;
+  }
+
+  .day-btn {
+    font-size:9px;
+    padding:9px 1px;
+  }
+
+  .card {
+    padding:15px;
+  }
+
+  .photo-grid {
+    grid-template-columns:1fr 1fr;
+  }
+
+  .photo-grid img {
+    height:140px;
+  }
+
+  .timer {
+    font-size:50px;
+  }
+
+  .count-unit strong {
+    font-size:24px;
+  }
 }
 </style>
 </head>
-<body>
 
-<header class="hero">
- <div class="hero-content">
-  <div class="eyebrow">MY PERSONAL STUDY JOURNAL</div>
-  <h1>AFTER HOURS.</h1>
-  <p>Somewhere between today and the future.</p>
-  <p id="heroDate" class="sub"></p>
- </div>
+<body>
+<div class="app">
+
+<header class="topbar">
+  <div class="logo">
+    AFTER HOURS
+    <small>YKS JOURNAL · 2027</small>
+  </div>
+
+  <nav class="nav">
+    <button class="active" data-page="home">ANA SAYFA</button>
+    <button data-page="program">PROGRAM</button>
+    <button data-page="camps">KAMPLAR</button>
+    <button data-page="journal">GÜNLÜK</button>
+    <button data-page="music">MÜZİK</button>
+    <button data-page="focus">POMODORO</button>
+    <button data-page="stats">İSTATİSTİK</button>
+    <button data-page="goals">HEDEFLER</button>
+    <button data-page="settings">AYARLAR</button>
+  </nav>
 </header>
 
-<nav>
- <a href="#home">HOME</a>
- <a href="#music">MUSIC</a>
- <a href="#courses">CAMPS</a>
- <a href="#journal">JOURNAL</a>
- <a href="#timer">POMODORO</a>
- <a href="#stats">STATISTICS</a>
- <a href="#goals">GOALS</a>
- <a href="#settings">SETTINGS</a>
-</nav>
-
-<main class="container">
-
-<section id="home">
- <div class="between">
-  <div>
-   <div class="eyebrow">MONDAY / YOUR JOURNEY</div>
-   <h2 class="section-title">Welcome back.</h2>
+<div class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">KENDİ GELECEĞİNİ İNŞA ET</div>
+    <h1>AFTER HOURS</h1>
+    <p>Bugün, gelecekteki hayatına atılmış bir adım.</p>
   </div>
-  <span class="tag" id="todayLabel"></span>
- </div>
+</div>
 
- <div class="grid">
-  <div class="card stat"><span>TODAY'S STUDY</span>
-   <strong id="todayHours">0.0 h</strong><small class="muted">Recorded hours</small></div>
-  <div class="card stat"><span>TOTAL STUDY</span>
-   <strong id="totalHours">0 h</strong><small class="muted">All recorded days</small></div>
-  <div class="card stat"><span>COMPLETED CAMP DAYS</span>
-   <strong id="completedDays">0</strong><small class="muted">Your progress</small></div>
-  <div class="card stat"><span>COMPLETED QUESTIONS</span>
-   <strong id="totalQuestions">0</strong><small class="muted">All subjects</small></div>
- </div>
+<!-- ANA SAYFA -->
+<section class="section active" id="home">
 
- <div class="card" style="margin-top:14px">
-  <div class="eyebrow">TODAY'S FOCUS</div>
-  <h2 class="section-title">One day at a time.</h2>
-  <div id="todayTasks"></div>
-  <p class="sub">Today's plan can change. Your progress matters more.</p>
- </div>
+  <div class="section-head">
+    <div>
+      <div class="eyebrow" id="homeDate"></div>
+      <h2>Tekrar hoş geldin.</h2>
+      <div class="sub">Küçük adımlar da ilerlemedir.</div>
+    </div>
+    <button class="btn" onclick="go('program')">Haftalık program →</button>
+  </div>
+
+  <div class="grid3">
+    <div class="card">
+      <div class="card-title">Bugünkü çalışma</div>
+      <div class="stat" id="homeHours">0</div>
+      <div class="sub">Saat</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Çözülen sorular</div>
+      <div class="stat" id="homeQuestions">0</div>
+      <div class="sub">Bugün</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Görev ilerlemesi</div>
+      <div class="stat" id="homeProgress">0%</div>
+      <div class="sub">Bugün</div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">BUGÜNÜN PROGRAMI</div>
+      <h2 id="homeTaskTitle">Bugünkü görevler</h2>
+    </div>
+    <button class="btn" onclick="go('program')">Düzenle</button>
+  </div>
+
+  <div class="card">
+    <div id="homeTasks"></div>
+  </div>
+
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">GERİ SAYIM</div>
+      <h2>YKS'ye kalan süre</h2>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="countdown" id="countdown"></div>
+    <div class="sub" style="margin-top:12px">
+      Sınav tarihini ayarlardan değiştirebilirsin.
+    </div>
+  </div>
+
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">KENDİNE HATIRLAT</div>
+      <h2>Bugünün notu</h2>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="quote" id="homeQuote">
+      Bir gün değil, her gün biraz daha yaklaş.
+    </div>
+  </div>
+
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">GECE ŞEHRİ</div>
+      <h2>Biraz nefes al.</h2>
+    </div>
+  </div>
+
+  <div class="photo-grid">
+    <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=700" alt="Gece gökyüzü">
+    <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=700" alt="Gece şehir">
+    <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=700" alt="Şehir silüeti">
+  </div>
 </section>
 
-<section id="music">
- <h2 class="section-title">♫ Music room</h2>
- <div class="card">
-  <div class="player">
-   <img class="player-art"
-    src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=300"
-    alt="City at night">
-   <div style="flex:1;min-width:150px">
-    <div class="eyebrow">NOW PLAYING</div>
-    <strong id="musicTitle">Your soundtrack</strong>
-    <p class="sub">YouTube player</p>
-   </div>
-   <button class="btn" onclick="setPlayer('compact')">Small</button>
-   <button class="btn" onclick="setPlayer('expanded')">Large</button>
-   <button class="btn" onclick="setPlayer('hidden')">Hide</button>
+<!-- HAFTALIK PROGRAM -->
+<section class="section" id="program">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">HAFTALIK PLANLAMA</div>
+      <h2>Çalışma programın</h2>
+      <div class="sub">Her günün görevlerini ayrı ayrı düzenleyebilirsin.</div>
+    </div>
   </div>
-  <div id="playerArea" style="margin-top:15px">
-   <iframe id="youtubeFrame" title="YouTube music player"
-    src="about:blank" allow="autoplay; encrypted-media; picture-in-picture"
-    allowfullscreen></iframe>
+
+  <div class="card">
+    <div class="between">
+      <button class="btn" onclick="changeWeek(-1)">← Önceki hafta</button>
+      <strong id="weekTitle">Bu hafta</strong>
+      <button class="btn" onclick="changeWeek(1)">Sonraki hafta →</button>
+    </div>
+
+    <div class="week-grid" id="weekDays" style="margin-top:18px"></div>
   </div>
-  <div class="grid" style="margin-top:14px">
-   <div><label>YouTube video link</label>
-    <input id="youtubeUrl" placeholder="Paste a YouTube link"></div>
-   <div><label>Song name</label>
-    <input id="songName" placeholder="Song / artist"></div>
+
+  <div class="section-head">
+    <div>
+      <div class="eyebrow" id="selectedDateLabel">BUGÜN</div>
+      <h2 id="selectedDateTitle">Görevlerin</h2>
+    </div>
+    <button class="btn main" onclick="addTask()">+ Görev ekle</button>
   </div>
-  <div class="row" style="margin-top:12px">
-   <button class="btn main" onclick="loadMusic()">Play song</button>
-   <button class="btn" onclick="stopMusic()">Stop</button>
+
+  <div class="card">
+    <div class="between">
+      <div>
+        <strong>Günlük görev listesi</strong>
+        <div class="sub">Paragraf her gün otomatik eklenir.</div>
+      </div>
+      <span class="badge" id="taskCount">0 / 0</span>
+    </div>
+
+    <div class="progress">
+      <span id="taskProgress" style="width:0%"></span>
+    </div>
+
+    <div id="taskList"></div>
   </div>
-  <p class="sub">YouTube playback requires an internet connection. Start playback yourself; automatic playback may be blocked by the browser. Hiding the player does not stop the music.</p>
- </div>
+
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">HAFTALIK NOT</div>
+      <h2>Bu haftanın odağı</h2>
+    </div>
+  </div>
+
+  <div class="card">
+    <textarea id="weeklyFocus" placeholder="Bu hafta önceliğim..."></textarea>
+    <button class="btn main" style="margin-top:10px" onclick="saveWeeklyFocus()">Haftalık odağı kaydet</button>
+  </div>
 </section>
 
-<section id="courses">
- <h2 class="section-title">Study campaigns</h2>
- <p class="sub">A delayed day moves the remaining schedule of that campaign only.</p>
- <div id="courseList"></div>
- <button class="btn main" onclick="addCourse()">+ Add campaign</button>
+<!-- KAMPLAR -->
+<section class="section" id="camps">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">DERS TAKİBİ</div>
+      <h2>Çalışma kampları</h2>
+      <div class="sub">Bir kampı ertelemek diğer kampın takvimini değiştirmez.</div>
+    </div>
+    <button class="btn main" onclick="openCampaignModal()">+ Kamp ekle</button>
+  </div>
+
+  <div id="campaignList"></div>
+
+  <div class="card">
+    <div class="eyebrow">NASIL ÇALIŞIR?</div>
+    <p class="sub">
+      Bir kamp gününü ertelediğinde o gün ve sonraki günler yalnızca
+      o kamp için kayar. Tamamlanan günlerin kayıtları korunur.
+      Kamp süresini ve başlangıç gününü düzenleyebilirsin.
+    </p>
+  </div>
 </section>
 
-<section id="journal">
- <h2 class="section-title">Daily journal</h2>
- <div class="card">
-  <label>Select a day</label>
-  <input type="date" id="journalDate">
-  <div class="grid">
-   <div><label>Study hours</label>
-    <input type="number" id="hours" min="0" max="24" step=".25" placeholder="e.g. 5.5"></div>
-   <div><label>Number of questions</label>
-    <input type="number" id="questions" min="0" placeholder="e.g. 120"></div>
-   <div><label>How was your day?</label>
-    <select id="mood">
-     <option>Good</option><option>Productive</option>
-     <option>Average</option><option>Difficult</option><option>Rest day</option>
-    </select>
-   </div>
+<!-- GÜNLÜK -->
+<section class="section" id="journal">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">KENDİNE ZAMAN AYIR</div>
+      <h2>Günlük</h2>
+      <div class="sub">Çalıştıklarını, hissettiklerini ve ilerlemeni kaydet.</div>
+    </div>
   </div>
-  <label>What did I study?</label>
-  <textarea id="studyNote" placeholder="Which subjects, topics, or tasks did you work on?"></textarea>
-  <label>How did my day go?</label>
-  <textarea id="dayNote" placeholder="Write freely. What happened today?"></textarea>
-  <label>Questions for tomorrow / reminders</label>
-  <textarea id="tomorrowNote" placeholder="What do I want to remember?"></textarea>
-  <label>Today's photo</label>
-  <input type="file" id="photoInput" accept="image/*">
-  <img id="photoPreview" class="photo" hidden alt="Today's journal photo">
-  <div class="row" style="margin-top:15px">
-   <button class="btn main" onclick="saveJournal()">Save this day</button>
-   <button class="btn" onclick="clearJournal()">Clear fields</button>
+
+  <div class="card">
+    <div class="field">
+      <label>Hangi günün kaydını tutuyorsun?</label>
+      <input type="date" id="journalDate">
+    </div>
+
+    <div class="grid">
+      <div class="field">
+        <label>Çalışma süresi (saat)</label>
+        <input type="number" id="journalHours" min="0" max="24" step=".25" placeholder="Örn. 4.5">
+      </div>
+
+      <div class="field">
+        <label>Çözülen soru sayısı</label>
+        <input type="number" id="journalQuestions" min="0" placeholder="Örn. 120">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Bugün kendimi nasıl hissediyorum?</label>
+      <select id="journalMood">
+        <option value="">Seç...</option>
+        <option>İyi</option>
+        <option>Verimli</option>
+        <option>Orta</option>
+        <option>Yorgun</option>
+        <option>Zorlayıcı</option>
+        <option>Dinlenmeye ihtiyacım var</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Bugün neler yaptım?</label>
+      <textarea id="journalWork" placeholder="Çalıştığın dersleri, konuları ve ilerlemeni yaz..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Günün nasıl geçti?</label>
+      <textarea id="journalFeelings" placeholder="Bugün nasıldım? Neler iyi gitti?"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Yarın için notlarım</label>
+      <textarea id="journalTomorrow" placeholder="Yarın unutmamam gerekenler..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Günün fotoğrafı</label>
+      <input type="file" id="journalPhoto" accept="image/*">
+      <div class="sub">Fotoğrafın küçültülmüş bir kopyası bu tarayıcıya kaydedilir.</div>
+      <img id="photoPreview" style="display:none;width:100%;max-height:250px;object-fit:cover;border-radius:10px;filter:grayscale(1)">
+    </div>
+
+    <div class="row">
+      <button class="btn main" onclick="saveJournal()">Günü kaydet</button>
+      <button class="btn" onclick="clearJournal()">Alanları temizle</button>
+    </div>
   </div>
- </div>
- <div class="card" style="margin-top:14px">
-  <h3 style="font-weight:400">Past entries</h3>
+
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">GEÇMİŞ</div>
+      <h2>Günlük kayıtlarım</h2>
+    </div>
+  </div>
+
   <div id="journalHistory"></div>
- </div>
 </section>
 
-<section id="timer">
- <h2 class="section-title">Focus room</h2>
- <div class="card timer">
-  <div class="eyebrow">POMODORO TIMER</div>
-  <div class="timer-number" id="timerDisplay">25:00</div>
-  <div class="row" style="justify-content:center">
-   <button class="btn main" id="timerButton" onclick="toggleTimer()">Start</button>
-   <button class="btn" onclick="resetTimer()">Reset</button>
+<!-- MÜZİK -->
+<section class="section" id="music">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">ARKA PLAN SESİ</div>
+      <h2>Müzik odası</h2>
+      <div class="sub">YouTube bağlantını ekleyerek müziğini açabilirsin.</div>
+    </div>
   </div>
-  <div class="row" style="justify-content:center;margin-top:15px">
-   <button class="btn" onclick="setTimer(25)">25 / 5</button>
-   <button class="btn" onclick="setTimer(50)">50 / 10</button>
-   <button class="btn" onclick="setTimer(90)">90 min</button>
+
+  <div class="player-box" id="playerBox">
+    <div class="player-top">
+      <div>
+        <div class="card-title">ŞİMDİ ÇALIYOR</div>
+        <strong id="musicName">Senin çalışma müziğin</strong>
+      </div>
+      <div class="row">
+        <button class="btn" onclick="playerMode('hidden')">Gizle</button>
+        <button class="btn" onclick="playerMode('compact')">Küçük</button>
+        <button class="btn" onclick="playerMode('large')">Büyük</button>
+      </div>
+    </div>
+
+    <iframe
+      id="youtubeFrame"
+      class="player-frame"
+      src=""
+      title="YouTube müzik oynatıcı"
+      allow="autoplay; encrypted-media; picture-in-picture"
+      allowfullscreen>
+    </iframe>
   </div>
-  <p class="sub" id="timerStatus">A little focus goes a long way.</p>
- </div>
-</section>
 
-<section id="stats">
- <h2 class="section-title">Statistics</h2>
- <div class="grid">
-  <div class="card stat"><span>THIS WEEK</span><strong id="weekHours">0 h</strong></div>
-  <div class="card stat"><span>THIS MONTH</span><strong id="monthHours">0 h</strong></div>
-  <div class="card stat"><span>DAILY AVERAGE</span><strong id="averageHours">0 h</strong></div>
-  <div class="card stat"><span>JOURNAL ENTRIES</span><strong id="entryCount">0</strong></div>
- </div>
- <div class="card" style="margin-top:14px">
-  <h3 style="font-weight:400">Last 7 days · Study hours</h3>
-  <div id="weeklyChart"></div>
- </div>
-</section>
+  <div class="card" style="margin-top:15px">
+    <div class="field">
+      <label>YouTube bağlantısı</label>
+      <input id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=...">
+    </div>
 
-<section id="goals">
- <h2 class="section-title">Personal goals</h2>
- <div class="card">
-  <div class="row">
-   <input id="goalInput" placeholder="Write a goal..." style="flex:1">
-   <button class="btn main" onclick="addGoal()">Add</button>
+    <div class="field">
+      <label>Şarkı / liste adı</label>
+      <input id="musicTitle" placeholder="Çalışma listem">
+    </div>
+
+    <button class="btn main" onclick="saveMusic()">Müziği aç</button>
+    <button class="btn" onclick="stopMusic()">Durdur</button>
+    <p class="sub">YouTube'un kendi oynatıcısı kullanılır. Bazı tarayıcılarda gizli modda oynatma kısıtlanabilir.</p>
   </div>
-  <div id="goalList" style="margin-top:15px"></div>
- </div>
- <div class="card" style="margin-top:14px">
-  <h3 style="font-weight:400">Topic & question tracker</h3>
-  <div class="grid">
-   <div><label>Subject</label><input id="topicSubject" placeholder="TYT Mathematics"></div>
-   <div><label>Topic</label><input id="topicName" placeholder="Fractions"></div>
-   <div><label>Questions solved</label><input id="topicQuestions" type="number" min="0" placeholder="0"></div>
+</section>
+
+<!-- POMODORO -->
+<section class="section" id="focus">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">ODAK ZAMANI</div>
+      <h2>Pomodoro</h2>
+      <div class="sub">Küçük bir odak, büyük bir ilerleme.</div>
+    </div>
   </div>
-  <button class="btn main" style="margin-top:12px" onclick="addTopic()">Add topic</button>
-  <div id="topicList"></div>
- </div>
-</section>
 
-<section id="motivation">
- <h2 class="section-title">A note to myself</h2>
- <div class="card">
-  <p class="sub">Write something you want to remember when studying gets difficult.</p>
-  <textarea id="motivationText" placeholder="Why did I start? What am I working towards?"></textarea>
-  <button class="btn main" style="margin-top:10px" onclick="saveMotivation()">Save motivation</button>
- </div>
-</section>
+  <div class="card">
+    <div class="timer-mode">
+      <button class="btn" onclick="setTimer(25,5)">25 / 5 dk</button>
+      <button class="btn" onclick="setTimer(50,10)">50 / 10 dk</button>
+      <button class="btn" onclick="setTimer(90,15)">90 / 15 dk</button>
+    </div>
 
-<section id="countdown">
- <div class="countdown">
-  <div class="eyebrow">THE COUNTDOWN</div>
-  <h2 class="section-title">Until YKS.</h2>
-  <div class="count-grid">
-   <div><strong id="cdDays">--</strong><span>DAYS</span></div>
-   <div><strong id="cdHours">--</strong><span>HOURS</span></div>
-   <div><strong id="cdMinutes">--</strong><span>MINUTES</span></div>
-   <div><strong id="cdSeconds">--</strong><span>SECONDS</span></div>
+    <div class="eyebrow" style="text-align:center;margin-top:25px" id="timerLabel">ODAKLANMA</div>
+    <div class="timer" id="timerDisplay">25:00</div>
+
+    <div class="row" style="justify-content:center">
+      <button class="btn main" id="timerStart" onclick="startTimer()">Başlat</button>
+      <button class="btn" onclick="pauseTimer()">Duraklat</button>
+      <button class="btn" onclick="resetTimer()">Sıfırla</button>
+    </div>
+
+    <div class="sub" style="text-align:center;margin-top:20px" id="timerInfo">
+      25 dakika odaklan, ardından kısa mola ver.
+    </div>
   </div>
-  <p class="sub">The date can be updated when the official exam calendar is announced.</p>
-  <input type="date" id="examDate" style="max-width:220px">
- </div>
 </section>
 
-<section id="settings">
- <h2 class="section-title">Settings & backup</h2>
- <div class="card">
-  <p class="sub">Your information is saved in this browser. Make regular backups.</p>
-  <div class="row">
-   <button class="btn main" onclick="exportData()">Download backup</button>
-   <button class="btn" onclick="document.getElementById('importFile').click()">Restore backup</button>
-   <input id="importFile" type="file" accept=".json" hidden>
+<!-- İSTATİSTİK -->
+<section class="section" id="stats">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">İLERLEMEN</div>
+      <h2>İstatistikler</h2>
+      <div class="sub">Kendini yalnızca dünkü hâlinle karşılaştır.</div>
+    </div>
   </div>
-  <label>Weekly focus</label>
-  <textarea id="weeklyFocus" placeholder="What matters most this week?"></textarea>
-  <button class="btn main" style="margin-top:10px" onclick="saveFocus()">Save weekly focus</button>
- </div>
-</section>
-</main>
 
-<footer>AFTER HOURS · MADE FOR MY FUTURE SELF.</footer>
-<div id="toast"></div>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-title">Toplam çalışma</div>
+      <div class="stat" id="totalHours">0</div>
+      <div class="sub">Saat</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Toplam soru</div>
+      <div class="stat" id="totalQuestions">0</div>
+      <div class="sub">Soru</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Kayıtlı gün</div>
+      <div class="stat" id="recordedDays">0</div>
+      <div class="sub">Gün</div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">SON 7 GÜN</div>
+      <h2>Çalışma saatleri</h2>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="chart-bars" id="weeklyChart"></div>
+  </div>
+
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">AYLIK İLERLEME</div>
+      <h2>Bu ay</h2>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="grid3">
+      <div>
+        <div class="card-title">Çalışma saati</div>
+        <div class="stat" id="monthHours">0</div>
+      </div>
+      <div>
+        <div class="card-title">Soru</div>
+        <div class="stat" id="monthQuestions">0</div>
+      </div>
+      <div>
+        <div class="card-title">Günlük ortalama</div>
+        <div class="stat" id="averageHours">0</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HEDEFLER -->
+<section class="section" id="goals">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">KÜÇÜK ADIMLAR</div>
+      <h2>Hedeflerim</h2>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="field">
+      <label>Yeni hedef</label>
+      <input id="goalInput" placeholder="Örn. Bu hafta 500 soru çözmek">
+    </div>
+    <button class="btn main" onclick="addGoal()">+ Hedef ekle</button>
+    <div class="divider"></div>
+    <div id="goalList"></div>
+  </div>
+
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">KONU TAKİBİ</div>
+      <h2>Konu ve soru sayacı</h2>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="grid">
+      <div class="field">
+        <label>Ders</label>
+        <select id="topicSubject">
+          <option>TYT Matematik</option>
+          <option>AYT Matematik</option>
+          <option>Geometri</option>
+          <option>Türkçe</option>
+          <option>AYT Edebiyat</option>
+          <option>TYT Fen</option>
+          <option>TYT Sosyal</option>
+          <option>Diğer</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Konu</label>
+        <input id="topicName" placeholder="Konu adı">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Çözülen soru</label>
+      <input id="topicQuestions" type="number" min="0" placeholder="Soru sayısı">
+    </div>
+
+    <button class="btn main" onclick="addTopic()">Konu ekle</button>
+    <div class="divider"></div>
+    <div id="topicList"></div>
+  </div>
+
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">KENDİNE NOT</div>
+      <h2>Motivasyon köşesi</h2>
+    </div>
+  </div>
+
+  <div class="card">
+    <textarea id="motivationText" placeholder="Neden başladığını, ne için çabaladığını yaz..."></textarea>
+    <button class="btn main" style="margin-top:10px" onclick="saveMotivation()">Notu kaydet</button>
+  </div>
+</section>
+
+<!-- AYARLAR -->
+<section class="section" id="settings">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">KİŞİSELLEŞTİRME</div>
+      <h2>Ayarlar ve yedekleme</h2>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="field">
+      <label>YKS tarihi</label>
+      <input type="date" id="examDate">
+    </div>
+    <button class="btn main" onclick="saveExamDate()">Sınav tarihini kaydet</button>
+
+    <div class="divider"></div>
+
+    <h3>Verilerini koru</h3>
+    <p class="sub">
+      Verilerin bu tarayıcıda saklanır. Tarayıcı verilerini silersen
+      kayıtların kaybolabilir. Düzenli olarak yedek indir.
+    </p>
+
+    <div class="row">
+      <button class="btn main" onclick="downloadBackup()">Yedeği indir</button>
+      <label class="btn">
+        Yedeği geri yükle
+        <input type="file" id="restoreFile" accept=".json,application/json" hidden onchange="restoreBackup(event)">
+      </label>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Verileri temizle</h3>
+    <p class="sub">Bu işlem bütün kayıtlarını silebilir. Önce yedek al.</p>
+    <button class="btn danger" onclick="clearAllData()">Tüm verileri sıfırla</button>
+  </div>
+</section>
+
+<footer class="footer">
+  AFTER HOURS · GELECEKTEKİ KENDİN İÇİN
+</footer>
+
+</div>
+
+<!-- KAMP PENCERESİ -->
+<div class="modal" id="campaignModal">
+  <div class="modal-inner">
+    <div class="between">
+      <h3 id="campaignModalTitle">Yeni kamp</h3>
+      <button class="icon-btn" onclick="closeCampaignModal()">✕</button>
+    </div>
+
+    <input type="hidden" id="campaignId">
+
+    <div class="field">
+      <label>Kamp adı</label>
+      <input id="campaignName" placeholder="Örn. AYT Fizik">
+    </div>
+
+    <div class="grid">
+      <div class="field">
+        <label>Gün sayısı</label>
+        <input type="number" id="campaignDuration" min="1" value="30">
+      </div>
+      <div class="field">
+        <label>Başlangıç günü numarası</label>
+        <input type="number" id="campaignFirstDay" min="1" value="1">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Başlangıç tarihi</label>
+      <input type="date" id="campaignStart">
+    </div>
+
+    <div class="field">
+      <label>Başlangıç türü</label>
+      <select id="campaignMode">
+        <option value="fixed">Belirli bir tarihte başlasın</option>
+        <option value="after">Başka kamp bittikten sonra başlasın</option>
+      </select>
+    </div>
+
+    <div class="field" id="dependencyField" style="display:none">
+      <label>Önce tamamlanacak kamp</label>
+      <select id="campaignDependency"></select>
+    </div>
+
+    <div class="row">
+      <button class="btn main" onclick="saveCampaign()">Kaydet</button>
+      <button class="btn" onclick="closeCampaignModal()">Vazgeç</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-const $=id=>document.getElementById(id);
-const today=()=>new Date().toLocaleDateString('en-CA');
-const dateText=d=>new Date(d+'T12:00:00').toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'});
-const shift=(d,n)=>{let x=new Date(d+'T12:00:00');x.setDate(x.getDate()+n);return x.toLocaleDateString('en-CA')};
-const initial={
- courses:[
-  {id:1,name:'AYT Mathematics',total:80,start:'2026-11-09',done:0,offset:0,info:'Day 1 starts today.'},
-  {id:2,name:'Geometry',total:58,start:'2026-11-11',done:0,offset:0,info:'Basic geometry days 11 and 12 first. Main camp starts Wednesday.'},
-  {id:3,name:'TYT Mathematics',total:55,start:'2026-11-16',done:0,offset:0,info:'Basic study this week. Start from day 7 next Monday.'},
-  {id:4,name:'AYT Literature',total:25,start:'',done:0,offset:0,info:'Starts after TYT Mathematics.'},
-  {id:5,name:'TYT Science',total:null,start:'',done:0,offset:0,info:'Starts after literature.'},
-  {id:6,name:'Social studies',total:null,start:'',done:0,offset:0,info:'Add individual subject durations when decided.'}
- ],
- journals:{},goals:[],topics:[],motivation:'',weeklyFocus:'',
- examDate:'2027-06-19',music:{url:'',name:'',mode:'expanded'}
-};
-let data;
-try{data=JSON.parse(localStorage.getItem('afterHours'))||structuredClone(initial)}
-catch(e){data=structuredClone(initial)}
-function save(){localStorage.setItem('afterHours',JSON.stringify(data));render()}
-function toast(t){$('toast').textContent=t;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',2000)}
-function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+/* =========================================================
+   AFTER HOURS — YKS JOURNAL
+   Tek dosyalık kişisel çalışma paneli
+   ========================================================= */
 
-$('heroDate').textContent=new Date().toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-$('todayLabel').textContent=dateText(today());
-$('journalDate').value=today();
-$('examDate').value=data.examDate;
+/* ---------- TARİH YARDIMCILARI ---------- */
 
-function render(){
- renderCourses();renderStats();renderGoals();renderTopics();renderHistory();
- $('motivationText').value=data.motivation||'';
- $('weeklyFocus').value=data.weeklyFocus||'';
- $('todayHours').textContent=(data.journals[today()]?.hours||0)+' h';
- $('todayTasks').innerHTML=`
- <div class="check"><span>□</span> AYT Mathematics · Day 1</div>
- <div class="check"><span>□</span> Basic Geometry · Day 11</div>
- <div class="check"><span>□</span> Paragraph practice</div>
- <p class="sub">Edit your personal daily notes in the journal below.</p>`;
-}
-function renderCourses(){
- $('courseList').innerHTML=data.courses.map(c=>{
- let pct=c.total?Math.min(100,Math.round(c.done/c.total*100)):0;
- let start=c.start?shift(c.start,c.offset||0):'Not set';
- return `<div class="card course">
- <div class="between"><div><h3>${esc(c.name)}</h3><small>${esc(c.info||'')}</small></div>
- <span class="tag">${c.total?c.done+' / '+c.total+' days':'Flexible duration'}</span></div>
- <div class="progress"><div style="width:${pct}%"></div></div>
- <small>${pct}% complete · Start: ${start}</small>
- <div class="course-actions">
- <button class="btn" onclick="completeCourse(${c.id})">✓ Complete day</button>
- <button class="btn" onclick="delayCourse(${c.id})">+1 day delay</button>
- <button class="btn" onclick="editCourse(${c.id})">Edit</button>
- <button class="btn danger" onclick="deleteCourse(${c.id})">Delete</button>
- </div></div>`;
- }).join('');
-}
-function completeCourse(id){
- let c=data.courses.find(x=>x.id===id);
- if(c.total&&c.done>=c.total)return toast('This campaign is complete.');
- c.done++;save();toast('Progress saved.');
-}
-function delayCourse(id){
- let c=data.courses.find(x=>x.id===id);
- c.offset=(c.offset||0)+1;save();toast('Campaign moved one day forward.');
-}
-function editCourse(id){
- let c=data.courses.find(x=>x.id===id);
- let name=prompt('Campaign name',c.name);if(name===null)return;
- let total=prompt('Total days (leave empty if unknown)',c.total||'');
- let start=prompt('Start date (YYYY-MM-DD)',c.start||'');
- c.name=name.trim()||c.name;c.total=Number(total)||null;
- c.start=start;c.info=prompt('Campaign note',c.info||'')??c.info;
- save();
-}
-function deleteCourse(id){
- if(confirm('Delete this campaign?')){data.courses=data.courses.filter(x=>x.id!==id);save()}
-}
-function addCourse(){
- let name=prompt('Campaign name');if(!name)return;
- let total=Number(prompt('How many days? (0 if unknown)')||0);
- let start=prompt('Start date YYYY-MM-DD (optional)','');
- data.courses.push({id:Date.now(),name,total:total||null,start,done:0,offset:0,info:''});save();
+const pad = n => String(n).padStart(2,"0");
+
+function dateKey(date = new Date()) {
+  return [
+    date.getFullYear(),
+    pad(date.getMonth()+1),
+    pad(date.getDate())
+  ].join("-");
 }
 
-function saveJournal(){
- let d=$('journalDate').value;if(!d)return;
- let old=data.journals[d]||{};
- let photo=old.photo||'';
- let file=$('photoInput').files[0];
- const store=photo=>{
-  data.journals[d]={hours:Number($('hours').value)||0,
-   questions:Number($('questions').value)||0,
-   mood:$('mood').value,study:$('studyNote').value,
-   note:$('dayNote').value,tomorrow:$('tomorrowNote').value,photo};
-  save();toast('Journal saved.');
- };
- if(file){
-  let reader=new FileReader();
-  reader.onload=e=>{
-   let img=new Image();
-   img.onload=()=>{
-    let canvas=document.createElement('canvas');
-    let scale=Math.min(1,850/Math.max(img.width,img.height));
-    canvas.width=img.width*scale;canvas.height=img.height*scale;
-    canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
-    store(canvas.toDataURL('image/jpeg',.65));
-   };img.src=e.target.result;
-  };reader.readAsDataURL(file);
- }else store(photo);
-}
-function loadJournal(){
- let d=$('journalDate').value, j=data.journals[d];
- $('hours').value=j?.hours??'';
- $('questions').value=j?.questions??'';
- $('mood').value=j?.mood||'Good';
- $('studyNote').value=j?.study||'';
- $('dayNote').value=j?.note||'';
- $('tomorrowNote').value=j?.tomorrow||'';
- $('photoPreview').hidden=!j?.photo;
- if(j?.photo)$('photoPreview').src=j.photo;
- $('photoInput').value='';
-}
-function clearJournal(){
- ['hours','questions','studyNote','dayNote','tomorrowNote'].forEach(id=>$(id).value='');
- $('photoInput').value='';$('photoPreview').hidden=true;
-}
-$('journalDate').addEventListener('change',loadJournal);
-loadJournal();
-
-function renderHistory(){
- let keys=Object.keys(data.journals).sort().reverse();
- $('journalHistory').innerHTML=keys.length?keys.map(d=>{
- let j=data.journals[d];
- return `<div class="entry"><div class="between"><strong>${dateText(d)}</strong>
- <span class="tag">${j.hours} hours · ${j.mood}</span></div>
- <p class="sub">${esc(j.study||j.note||'No written note')}</p>
- <button class="btn" onclick="openEntry('${d}')">Open entry</button></div>`;
- }).join(''):'<p class="sub">Your journal entries will appear here.</p>';
-}
-function openEntry(d){$('journalDate').value=d;loadJournal();$('journal').scrollIntoView({behavior:'smooth'})}
-
-function renderStats(){
- let entries=Object.entries(data.journals);
- let hours=entries.reduce((s,[d,j])=>s+(Number(j.hours)||0),0);
- let questions=entries.reduce((s,[d,j])=>s+(Number(j.questions)||0),0);
- let completed=data.courses.reduce((s,c)=>s+(c.done||0),0);
- let now=new Date(),weekStart=new Date(now);
- weekStart.setDate(now.getDate()-((now.getDay()+6)%7));
- let month=now.toLocaleDateString('en-CA').slice(0,7);
- let week=entries.filter(([d])=>new Date(d+'T12:00:00')>=weekStart)
- .reduce((s,[d,j])=>s+(+j.hours||0),0);
- let monthHours=entries.filter(([d])=>d.startsWith(month))
- .reduce((s,[d,j])=>s+(+j.hours||0),0);
- $('totalHours').textContent=hours.toFixed(1)+' h';
- $('completedDays').textContent=completed;
- $('totalQuestions').textContent=questions;
- $('weekHours').textContent=week.toFixed(1)+' h';
- $('monthHours').textContent=monthHours.toFixed(1)+' h';
- $('averageHours').textContent=(entries.length?hours/entries.length:0).toFixed(1)+' h';
- $('entryCount').textContent=entries.length;
- let days=Array.from({length:7},(_,i)=>shift(today(),i-6));
- let max=Math.max(1,...days.map(d=>+(data.journals[d]?.hours||0)));
- $('weeklyChart').innerHTML=days.map(d=>{
- let h=+(data.journals[d]?.hours||0);
- return `<div style="margin:13px 0">
- <div class="between"><small>${dateText(d)}</small><small>${h} h</small></div>
- <div class="progress"><div style="width:${h/max*100}%"></div></div></div>`;
- }).join('');
+function parseDate(value) {
+  const [y,m,d] = value.split("-").map(Number);
+  return new Date(y,m-1,d,12,0,0);
 }
 
-function addGoal(){
- let text=$('goalInput').value.trim();if(!text)return;
- data.goals.push({id:Date.now(),text,done:false});
- $('goalInput').value='';save();
+function addDays(value, amount) {
+  const date = parseDate(value);
+  date.setDate(date.getDate()+amount);
+  return dateKey(date);
 }
-function renderGoals(){
- $('goalList').innerHTML=data.goals.map(g=>
- `<div class="check">
- <input type="checkbox" ${g.done?'checked':''} onchange="toggleGoal(${g.id})">
- <span style="${g.done?'text-decoration:line-through;color:#777':''}">${esc(g.text)}</span>
- <button class="btn danger" onclick="removeGoal(${g.id})">×</button>
- </div>`).join('')||'<p class="sub">No goals added yet.</p>';
-}
-function toggleGoal(id){let g=data.goals.find(x=>x.id===id);g.done=!g.done;save()}
-function removeGoal(id){data.goals=data.goals.filter(x=>x.id!==id);save()}
 
-function addTopic(){
- let subject=$('topicSubject').value.trim(),name=$('topicName').value.trim();
- let questions=Number($('topicQuestions').value)||0;
- if(!subject||!name)return toast('Enter a subject and topic.');
- data.topics.push({id:Date.now(),subject,name,questions});
- ['topicSubject','topicName','topicQuestions'].forEach(x=>$(x).value='');
- save();
+function daysBetween(a,b) {
+  return Math.round(
+    (parseDate(a)-parseDate(b))/86400000
+  );
 }
-function renderTopics(){
- $('topicList').innerHTML=data.topics.map(t=>
- `<div class="entry between"><div><strong>${esc(t.subject)}</strong>
- <div class="sub">${esc(t.name)} · ${t.questions} questions</div></div>
- <button class="btn danger" onclick="removeTopic(${t.id})">×</button></div>`
- ).join('')||'<p class="sub">No topics recorded yet.</p>';
-}
-function removeTopic(id){data.topics=data.topics.filter(t=>t.id!==id);save()}
 
-function saveMotivation(){data.motivation=$('motivationText').value;save();toast('Saved.')}
-function saveFocus(){data.weeklyFocus=$('weeklyFocus').value;save();toast('Weekly focus saved.')}
+function todayKey() {
+  return dateKey(new Date());
+}
 
-let timerSeconds=1500,remaining=1500,running=false,interval=null;
-function showTimer(){
- $('timerDisplay').textContent=String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0');
+function formatDate(value, options = {}) {
+  return parseDate(value).toLocaleDateString("tr-TR",{
+    weekday:"long",
+    day:"numeric",
+    month:"long",
+    ...options
+  });
 }
-function setTimer(min){
- clearInterval(interval);running=false;
- timerSeconds=min*60;remaining=timerSeconds;
- $('timerButton').textContent='Start';$('timerStatus').textContent='Ready to focus.';
- showTimer();
+
+function mondayOf(value) {
+  const date = parseDate(value);
+  const day = (date.getDay()+6)%7;
+  date.setDate(date.getDate()-day);
+  return dateKey(date);
 }
-function toggleTimer(){
- if(running){clearInterval(interval);running=false;$('timerButton').textContent='Resume';return}
- running=true;$('timerButton').textContent='Pause';
- interval=setInterval(()=>{
-  remaining--;showTimer();
-  if(remaining<=0){
-   clearInterval(interval);running=false;
-   $('timerButton').textContent='Start';
-   $('timerStatus').textContent='Session complete. Take a break!';
-   toast('Focus session complete!');
+
+function makeId() {
+  return "id-" + Date.now().toString(36) +
+    Math.random().toString(36).slice(2,8);
+}
+
+/* ---------- BAŞLANGIÇ VERİLERİ ---------- */
+
+const initialCampaigns = [
+  {
+    id:"ayt-math",
+    name:"AYT Matematik",
+    duration:80,
+    firstDay:1,
+    mode:"fixed",
+    start:"2026-11-09",
+    dependency:"",
+    delays:[],
+    completed:[],
+    active:true
+  },
+  {
+    id:"geometry",
+    name:"Ana Geometri Kampı",
+    duration:58,
+    firstDay:1,
+    mode:"fixed",
+    start:"2026-11-11",
+    dependency:"",
+    delays:[],
+    completed:[],
+    active:true
+  },
+  {
+    id:"tyt-math",
+    name:"TYT Matematik",
+    duration:55,
+    firstDay:7,
+    mode:"fixed",
+    start:"2026-11-16",
+    dependency:"",
+    delays:[],
+    completed:[],
+    active:true
+  },
+  {
+    id:"literature",
+    name:"AYT Edebiyat",
+    duration:25,
+    firstDay:1,
+    mode:"after",
+    start:"",
+    dependency:"tyt-math",
+    delays:[],
+    completed:[],
+    active:true
+  },
+  {
+    id:"tyt-science",
+    name:"TYT Fen",
+    duration:0,
+    firstDay:1,
+    mode:"after",
+    start:"",
+    dependency:"literature",
+    delays:[],
+    completed:[],
+    active:true
   }
- },1000);
-}
-function resetTimer(){setTimer(timerSeconds/60)}
+];
 
-function getVideoId(url){
- try{
-  let u=new URL(url);
-  if(u.hostname.includes('youtu.be'))return u.pathname.slice(1);
-  if(u.searchParams.get('v'))return u.searchParams.get('v');
-  let m=u.pathname.match(/\/embed\/([^/]+)/);return m?.[1]||'';
- }catch{return /^[\w-]{11}$/.test(url)?url:''}
-}
-function loadMusic(){
- let url=$('youtubeUrl').value.trim(),id=getVideoId(url);
- if(!id)return toast('Enter a valid YouTube link or video ID.');
- data.music={url,name:$('songName').value||'YouTube music',mode:data.music.mode||'expanded'};
- $('musicTitle').textContent=data.music.name;
- $('youtubeFrame').src='https://www.youtube.com/embed/'+id+'?autoplay=1&enablejsapi=1';
- saveMusic();
- setPlayer(data.music.mode);
-}
-function saveMusic(){localStorage.setItem('afterHours',JSON.stringify(data))}
-function stopMusic(){$('youtubeFrame').src='about:blank';toast('Playback stopped.')}
-function setPlayer(mode){
- data.music.mode=mode;saveMusic();
- let f=$('youtubeFrame');
- f.className=mode==='hidden'?'hidden-player':mode==='compact'?'compact-player':'expanded-player';
- $('playerArea').style.display='block';
-}
-if(data.music?.url){
- $('youtubeUrl').value=data.music.url;
- $('songName').value=data.music.name||'';
- $('musicTitle').textContent=data.music.name||'Your soundtrack';
-}
-setPlayer(data.music?.mode||'expanded');
+const initialState = {
+  version:1,
+  campaigns:initialCampaigns,
+  dayPlans:{},
+  journals:{},
+  goals:[],
+  topics:[],
+  motivation:"",
+  weeklyFocus:{},
+  examDate:"2027-06-19",
+  music:{url:"",title:"",mode:"large"}
+};
 
-function countdown(){
- let target=new Date(data.examDate+'T00:00:00');
- let diff=target-new Date();
- if(!data.examDate||isNaN(target)||diff<0){
-  ['cdDays','cdHours','cdMinutes','cdSeconds'].forEach(x=>$(x).textContent='--');return;
- }
- let d=Math.floor(diff/86400000);
- let h=Math.floor(diff%86400000/3600000);
- let m=Math.floor(diff%3600000/60000);
- let s=Math.floor(diff%60000/1000);
- $('cdDays').textContent=d;
- $('cdHours').textContent=h;
- $('cdMinutes').textContent=m;
- $('cdSeconds').textContent=s;
+/* ---------- VERİ KAYDI ---------- */
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem("afterHoursYKS_v1");
+    if (!raw) return structuredClone(initialState);
+
+    const saved = JSON.parse(raw);
+
+    return {
+      ...structuredClone(initialState),
+      ...saved,
+      campaigns:saved.campaigns || structuredClone(initialCampaigns),
+      dayPlans:saved.dayPlans || {},
+      journals:saved.journals || {},
+      goals:saved.goals || [],
+      topics:saved.topics || [],
+      weeklyFocus:saved.weeklyFocus || {},
+      music:saved.music || {url:"",title:"",mode:"large"}
+    };
+  } catch(error) {
+    console.error("Kayıt okunamadı:",error);
+    return structuredClone(initialState);
+  }
 }
-$('examDate').addEventListener('change',()=>{
- data.examDate=$('examDate').value;save();countdown();
+
+let state = loadState();
+
+function saveState() {
+  try {
+    localStorage.setItem(
+      "afterHoursYKS_v1",
+      JSON.stringify(state)
+    );
+  } catch(error) {
+    toast("Kayıt alanı dolmuş olabilir. Yedek indirip fotoğrafları azalt.");
+    console.error(error);
+  }
+}
+
+/* ---------- GENEL ARAYÜZ ---------- */
+
+function toast(message) {
+  const el = document.getElementById("toast");
+  el.textContent = message;
+  el.classList.add("show");
+  setTimeout(()=>el.classList.remove("show"),2500);
+}
+
+function go(page) {
+  document.querySelectorAll(".section").forEach(section=>{
+    section.classList.toggle(
+      "active",
+      section.id===page
+    );
+  });
+
+  document.querySelectorAll(".nav button").forEach(button=>{
+    button.classList.toggle(
+      "active",
+      button.dataset.page===page
+    );
+  });
+
+  if(page==="home") renderHome();
+  if(page==="program") renderProgram();
+  if(page==="camps") renderCampaigns();
+  if(page==="journal") renderJournal();
+  if(page==="stats") renderStats();
+  if(page==="goals") renderGoals();
+  if(page==="music") loadMusicUI();
+  if(page==="settings") renderSettings();
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.querySelectorAll(".nav button").forEach(button=>{
+  button.addEventListener("click",()=>go(button.dataset.page));
 });
-setInterval(countdown,1000);countdown();
 
-function exportData(){
- let blob=new Blob([JSON.stringify(data)],{type:'application/json'});
- let a=document.createElement('a');
- a.href=URL.createObjectURL(blob);a.download='after-hours-backup.json';
- a.click();URL.revokeObjectURL(a.href);
+/* ---------- KAMP TAKVİMİ ---------- */
+
+function getCampaign(id) {
+  return state.campaigns.find(c=>c.id===id);
 }
-$('importFile').addEventListener('change',async e=>{
- try{
-  let imported=JSON.parse(await e.target.files[0].text());
-  if(!imported.courses||!imported.journals)throw Error();
-  data=imported;save();toast('Backup restored.');
- }catch{toast('Invalid backup file.')}
+
+function getCampaignBaseStart(campaign, visited = new Set()) {
+  if (!campaign) return null;
+  if (campaign.mode==="fixed") return campaign.start || null;
+
+  if (!campaign.dependency) return null;
+  if (visited.has(campaign.id)) return null;
+
+  visited.add(campaign.id);
+
+  const previous = getCampaign(campaign.dependency);
+  if (!previous || previous.duration<1) return null;
+
+  const previousEnd = getCampaignSessionDate(
+    previous,
+    previous.duration,
+    visited
+  );
+
+  return previousEnd ? addDays(previousEnd,1) : null;
+}
+
+function getCampaignSessionDate(campaign, session, visited = new Set()) {
+  const base = getCampaignBaseStart(campaign,visited);
+  if (!base) return null;
+
+  const delayed = (campaign.delays || [])
+    .filter(n=>n<=session).length;
+
+  return addDays(base,session-1+delayed);
+}
+
+function campaignDayOnDate(campaign,date) {
+  if (!campaign.active || campaign.duration<1) return null;
+
+  for(let session=1;session<=campaign.duration;session++) {
+    const scheduled = getCampaignSessionDate(campaign,session);
+    if(scheduled===date) {
+      return {
+        session,
+        day:campaign.firstDay+session-1,
+        date:scheduled
+      };
+    }
+  }
+
+  return null;
+}
+
+function isCampaignComplete(campaign) {
+  return campaign.completed.length>=campaign.duration &&
+    campaign.duration>0;
+}
+
+function campaignCompletion(campaign) {
+  if (!campaign.duration) return 0;
+  return Math.round(
+    campaign.completed.length/campaign.duration*100
+  );
+}
+
+function postponeCampaignDay(id,session) {
+  const campaign = getCampaign(id);
+  if(!campaign) return;
+
+  campaign.delays.push(session);
+  saveState();
+  renderCampaigns();
+  renderProgram();
+  renderHome();
+
+  toast("Bu kampın bugünkü günü ertelendi.");
+}
+
+function toggleCampaignCompletion(id,session) {
+  const campaign = getCampaign(id);
+  if(!campaign) return;
+
+  if(campaign.completed.includes(session)) {
+    campaign.completed =
+      campaign.completed.filter(n=>n!==session);
+  } else {
+    campaign.completed.push(session);
+  }
+
+  saveState();
+  renderCampaigns();
+  renderProgram();
+  renderHome();
+}
+
+function editCampaign(id) {
+  const c = getCampaign(id);
+  if(!c) return;
+
+  document.getElementById("campaignId").value=c.id;
+  document.getElementById("campaignName").value=c.name;
+  document.getElementById("campaignDuration").value=c.duration;
+  document.getElementById("campaignFirstDay").value=c.firstDay;
+  document.getElementById("campaignStart").value=c.start || "";
+  document.getElementById("campaignMode").value=c.mode;
+  document.getElementById("campaignDependency").value=c.dependency || "";
+
+  document.getElementById("campaignModalTitle").textContent="Kampı düzenle";
+  updateDependencyField();
+  document.getElementById("campaignModal").classList.add("show");
+}
+
+function openCampaignModal() {
+  document.getElementById("campaignId").value="";
+  document.getElementById("campaignName").value="";
+  document.getElementById("campaignDuration").value=30;
+  document.getElementById("campaignFirstDay").value=1;
+  document.getElementById("campaignStart").value=todayKey();
+  document.getElementById("campaignMode").value="fixed";
+  document.getElementById("campaignDependency").value="";
+  document.getElementById("campaignModalTitle").textContent="Yeni kamp";
+
+  updateDependencyField();
+  document.getElementById("campaignModal").classList.add("show");
+}
+
+function closeCampaignModal() {
+  document.getElementById("campaignModal").classList.remove("show");
+}
+
+function updateDependencyField() {
+  const mode=document.getElementById("campaignMode").value;
+  const field=document.getElementById("dependencyField");
+
+  field.style.display=mode==="after"?"block":"none";
+
+  const select=document.getElementById("campaignDependency");
+  const current=document.getElementById("campaignId").value;
+
+  select.innerHTML='<option value="">Kamp seç...</option>';
+
+  state.campaigns
+    .filter(c=>c.id!==current)
+    .forEach(c=>{
+      const option=document.createElement("option");
+      option.value=c.id;
+      option.textContent=c.name;
+      select.appendChild(option);
+    });
+}
+
+document.getElementById("campaignMode")
+  .addEventListener("change",updateDependencyField);
+
+function saveCampaign() {
+  const id=document.getElementById("campaignId").value;
+  const name=document.getElementById("campaignName").value.trim();
+  const duration=Number(document.getElementById("campaignDuration").value);
+  const firstDay=Number(document.getElementById("campaignFirstDay").value);
+  const start=document.getElementById("campaignStart").value;
+  const mode=document.getElementById("campaignMode").value;
+  const dependency=document.getElementById("campaignDependency").value;
+
+  if(!name || !duration || duration<1 || !firstDay) {
+    toast("Kamp adı, gün sayısı ve başlangıç günü gerekli.");
+    return;
+  }
+
+  if(mode==="fixed" && !start) {
+    toast("Başlangıç tarihi seçmelisin.");
+    return;
+  }
+
+  if(mode==="after" && !dependency) {
+    toast("Önceki kampı seçmelisin.");
+    return;
+  }
+
+  if(mode==="after" && dependency===id) {
+    toast("Bir kamp kendisine bağlı olamaz.");
+    return;
+  }
+
+  if(id) {
+    const c=getCampaign(id);
+    Object.assign(c,{
+      name,duration,firstDay,start,mode,dependency
+    });
+    c.completed=c.completed.filter(n=>n<=duration);
+    c.delays=c.delays.filter(n=>n<=duration);
+  } else {
+    state.campaigns.push({
+      id:makeId(),
+      name,duration,firstDay,start,mode,dependency,
+      delays:[],
+      completed:[],
+      active:true
+    });
+  }
+
+  saveState();
+  closeCampaignModal();
+  renderCampaigns();
+  renderProgram();
+  toast("Kamp kaydedildi.");
+}
+
+function deleteCampaign(id) {
+  if(!confirm("Bu kampı silmek istediğine emin misin?")) return;
+
+  state.campaigns=state.campaigns.filter(c=>c.id!==id);
+  state.campaigns.forEach(c=>{
+    if(c.dependency===id) {
+      c.mode="fixed";
+      c.start="";
+      c.dependency="";
+    }
+  });
+
+  saveState();
+  renderCampaigns();
+  renderProgram();
+}
+
+function renderCampaigns() {
+  const host=document.getElementById("campaignList");
+
+  host.innerHTML=state.campaigns.map(c=>{
+    const percent=campaignCompletion(c);
+    const start=getCampaignBaseStart(c);
+    const end=c.duration
+      ?getCampaignSessionDate(c,c.duration)
+      :null;
+
+    const status=c.duration
+      ?(isCampaignComplete(c)?"Tamamlandı":percent+"% tamamlandı")
+      :"Başlangıç bekliyor";
+
+    return `
+      <div class="campaign">
+        <div class="between">
+          <div>
+            <h3>${escapeHTML(c.name)}</h3>
+            <div class="campaign-meta">
+              <span>${c.duration || "Süre belirlenmedi"} çalışma günü</span>
+              <span>${status}</span>
+              <span>${start?formatDate(start):"Tarih bekleniyor"}</span>
+            </div>
+          </div>
+          <div class="row">
+            <button class="btn" onclick="editCampaign('${c.id}')">Düzenle</button>
+            <button class="btn danger" onclick="deleteCampaign('${c.id}')">Sil</button>
+          </div>
+        </div>
+
+        <div class="progress">
+          <span style="width:${percent}%"></span>
+        </div>
+
+        <div class="between">
+          <div class="sub">
+            ${c.completed.length}/${c.duration} tamamlandı
+            ${end?" · Tahmini bitiş: "+formatDate(end):""}
+          </div>
+          <span class="badge">${c.firstDay}. günden başlar</span>
+        </div>
+
+        ${renderCampaignToday(c)}
+      </div>`;
+  }).join("");
+}
+
+function renderCampaignToday(c) {
+  const day=campaignDayOnDate(c,todayKey());
+  if(!day) return "";
+
+  const done=c.completed.includes(day.session);
+
+  return `
+    <div class="divider"></div>
+    <div class="between">
+      <strong>Bugün: ${day.day}. gün</strong>
+      <div class="row">
+        <button class="btn ${done?"success":"main"}"
+          onclick="toggleCampaignCompletion('${c.id}',${day.session})">
+          ${done?"Tamamlandı ✓":"Günü tamamla"}
+        </button>
+        <button class="btn"
+          onclick="postponeCampaignDay('${c.id}',${day.session})">
+          Ertele →
+        </button>
+      </div>
+    </div>`;
+}
+
+/* ---------- GÜNLÜK GÖREVLER ---------- */
+
+let selectedDate=todayKey();
+let currentWeek=mondayOf(todayKey());
+
+function defaultTasksForDate(date) {
+  const tasks=[];
+
+  tasks.push({
+    id:"paragraph-"+date,
+    text:"Paragraf — günlük çalışma",
+    type:"fixed",
+    done:false
+  });
+
+  if(date==="2026-11-09") {
+    tasks.push({
+      id:"geo-basic-11",
+      text:"Temel Geometri — 11. gün",
+      type:"fixed",
+      done:false
+    });
+  }
+
+  if(date==="2026-11-10") {
+    tasks.push({
+      id:"geo-basic-12",
+      text:"Temel Geometri — 12. gün",
+      type:"fixed",
+      done:false
+    });
+  }
+
+  state.campaigns.forEach(c=>{
+    const day=campaignDayOnDate(c,date);
+    if(!day) return;
+
+    tasks.push({
+      id:"campaign-"+c.id+"-"+day.session,
+      text:c.name+" — "+day.day+". gün",
+      type:"campaign",
+      campaignId:c.id,
+      session:day.session,
+      day:day.day,
+      done:c.completed.includes(day.session)
+    });
+  });
+
+  return tasks;
+}
+
+function getDayPlan(date) {
+  if(!state.dayPlans[date]) {
+    state.dayPlans[date]={
+      custom:[],
+      done:{}
+    };
+  }
+
+  if(!state.dayPlans[date].custom)
+    state.dayPlans[date].custom=[];
+
+  if(!state.dayPlans[date].done)
+    state.dayPlans[date].done={};
+
+  return state.dayPlans[date];
+}
+
+function getTasks(date) {
+  const plan=getDayPlan(date);
+  const generated=defaultTasksForDate(date);
+
+  generated.forEach(task=>{
+    if(task.type==="campaign") {
+      task.done=task.done ||
+        !!plan.done[task.id];
+    } else {
+      task.done=!!plan.done[task.id];
+    }
+  });
+
+  const custom=plan.custom.map(task=>({
+    ...task,
+    done:!!plan.done[task.id]
+  }));
+
+  return [...generated,...custom];
+}
+
+function toggleTask(date,id,checked) {
+  const plan=getDayPlan(date);
+  plan.done[id]=checked;
+
+  if(id.startsWith("campaign-")) {
+    const task=getTasks(date).find(t=>t.id===id);
+    if(task && task.campaignId) {
+      const c=getCampaign(task.campaignId);
+      if(c) {
+        if(checked && !c.completed.includes(task.session))
+          c.completed.push(task.session);
+        if(!checked)
+          c.completed=c.completed.filter(n=>n!==task.session);
+      }
+    }
+  }
+
+  saveState();
+  renderProgram();
+  renderHome();
+  renderCampaigns();
+}
+
+function addTask() {
+  const text=prompt("Yeni görevini yaz:");
+  if(!text || !text.trim()) return;
+
+  const plan=getDayPlan(selectedDate);
+  plan.custom.push({
+    id:makeId(),
+    text:text.trim()
+  });
+
+  saveState();
+  renderProgram();
+  toast("Görev eklendi.");
+}
+
+function editTask(date,id) {
+  const plan=getDayPlan(date);
+  const task=plan.custom.find(t=>t.id===id);
+  if(!task) {
+    toast("Otomatik kamp görevini kamp bölümünden düzenleyebilirsin.");
+    return;
+  }
+
+  const text=prompt("Görevini düzenle:",task.text);
+  if(text===null || !text.trim()) return;
+
+  task.text=text.trim();
+  saveState();
+  renderProgram();
+}
+
+function deleteTask(date,id) {
+  const plan=getDayPlan(date);
+  const task=plan.custom.find(t=>t.id===id);
+
+  if(task) {
+    plan.custom=plan.custom.filter(t=>t.id!==id);
+    delete plan.done[id];
+    saveState();
+    renderProgram();
+    toast("Görev silindi.");
+    return;
+  }
+
+  if(id.startsWith("paragraph-")) {
+    toast("Paragraf günlük sabit görevdir.");
+    return;
+  }
+
+  toast("Kamp görevlerini Kamplar bölümünden yönetebilirsin.");
+}
+
+function renderWeek() {
+  const host=document.getElementById("weekDays");
+  const first=parseDate(currentWeek);
+  const names=["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"];
+
+  document.getElementById("weekTitle").textContent=
+    formatDate(currentWeek,{weekday:undefined});
+
+  host.innerHTML="";
+
+  for(let i=0;i<7;i++) {
+    const date=addDays(currentWeek,i);
+    const tasks=getTasks(date);
+    const done=tasks.filter(t=>t.done).length;
+
+    const button=document.createElement("button");
+    button.className="day-btn"+
+      (date===selectedDate?" selected":"")+
+      (date===todayKey()?" today":"");
+
+    button.innerHTML=`
+      ${names[i]}
+      <br><strong>${parseDate(date).getDate()}</strong>
+      <small>${done}/${tasks.length}</small>`;
+
+    button.onclick=()=>{
+      selectedDate=date;
+      renderProgram();
+    };
+
+    host.appendChild(button);
+  }
+}
+
+function renderTaskList() {
+  const tasks=getTasks(selectedDate);
+  const done=tasks.filter(t=>t.done).length;
+  const percent=tasks.length?Math.round(done/tasks.length*100):0;
+
+  document.getElementById("taskCount").textContent=
+    done+" / "+tasks.length;
+
+  document.getElementById("taskProgress").style.width=percent+"%";
+
+  document.getElementById("taskList").innerHTML=tasks.map(task=>`
+    <div class="task ${task.done?"done":""}">
+      <input type="checkbox"
+        ${task.done?"checked":""}
+        onchange="toggleTask('${selectedDate}','${task.id}',this.checked)">
+      <span class="task-name">${escapeHTML(task.text)}</span>
+      <div class="task-actions">
+        ${task.type==="custom"?`
+          <button class="icon-btn"
+            onclick="editTask('${selectedDate}','${task.id}')">Düzenle</button>`:""}
+        <button class="icon-btn"
+          onclick="deleteTask('${selectedDate}','${task.id}')">Sil</button>
+      </div>
+    </div>`).join("");
+}
+
+function changeWeek(amount) {
+  currentWeek=addDays(currentWeek,amount*7);
+  selectedDate=currentWeek;
+  renderProgram();
+}
+
+function renderProgram() {
+  renderWeek();
+  renderTaskList();
+
+  document.getElementById("selectedDateLabel").textContent=
+    selectedDate===todayKey()?"BUGÜNÜN PROGRAMI":"SEÇİLEN GÜN";
+
+  document.getElementById("selectedDateTitle").textContent=
+    formatDate(selectedDate);
+
+  const weekId=currentWeek;
+  document.getElementById("weeklyFocus").value=
+    state.weeklyFocus[weekId] || "";
+}
+
+function saveWeeklyFocus() {
+  state.weeklyFocus[currentWeek]=
+    document.getElementById("weeklyFocus").value;
+
+  saveState();
+  toast("Haftalık odak kaydedildi.");
+}
+
+/* ---------- ANA SAYFA ---------- */
+
+const quotes=[
+  "Bir gün değil, her gün biraz daha yaklaş.",
+  "Bugün yaptığın küçük şey, yarının büyük farkı olabilir.",
+  "Kendi yolunu kendi emeğinle aç.",
+  "Mükemmel olmak zorunda değilsin. Devam etmek yeterli.",
+  "Biraz daha sabır, biraz daha emek.",
+  "Gelecekteki kendine bugünden bir iyilik yap."
+];
+
+function getDailyJournal(date) {
+  return state.journals[date] || {
+    hours:0,
+    questions:0,
+    mood:"",
+    work:"",
+    feelings:"",
+    tomorrow:"",
+    photo:""
+  };
+}
+
+function renderHome() {
+  const today=todayKey();
+  const tasks=getTasks(today);
+  const done=tasks.filter(t=>t.done).length;
+  const percent=tasks.length?Math.round(done/tasks.length*100):0;
+  const journal=getDailyJournal(today);
+
+  document.getElementById("homeDate").textContent=
+    formatDate(today).toLocaleUpperCase("tr-TR");
+
+  document.getElementById("homeHours").textContent=
+    Number(journal.hours||0);
+
+  document.getElementById("homeQuestions").textContent=
+    Number(journal.questions||0);
+
+  document.getElementById("homeProgress").textContent=percent+"%";
+
+  document.getElementById("homeTasks").innerHTML=tasks.map(task=>`
+    <div class="task ${task.done?"done":""}">
+      <input type="checkbox"
+        ${task.done?"checked":""}
+        onchange="toggleTask('${today}','${task.id}',this.checked)">
+      <span class="task-name">${escapeHTML(task.text)}</span>
+    </div>`).join("");
+
+  const quoteIndex=parseDate(today).getDate()%quotes.length;
+  document.getElementById("homeQuote").textContent=quotes[quoteIndex];
+
+  renderCountdown();
+}
+
+/* ---------- GERİ SAYIM ---------- */
+
+function renderCountdown() {
+  const target=parseDate(state.examDate || "2027-06-19");
+  const now=new Date();
+  const diff=Math.max(0,target.getTime()-now.getTime());
+
+  const seconds=Math.floor(diff/1000);
+  const days=Math.floor(seconds/86400);
+  const hours=Math.floor(seconds%86400/3600);
+  const minutes=Math.floor(seconds%3600/60);
+  const secs=seconds%60;
+
+  document.getElementById("countdown").innerHTML=`
+    <div class="count-unit"><strong>${days}</strong><small>GÜN</small></div>
+    <div class="count-unit"><strong>${hours}</strong><small>SAAT</small></div>
+    <div class="count-unit"><strong>${minutes}</strong><small>DAKİKA</small></div>
+    <div class="count-unit"><strong>${secs}</strong><small>SANİYE</small></div>`;
+}
+
+setInterval(renderCountdown,1000);
+
+/* ---------- GÜNLÜK KAYDI ---------- */
+
+let pendingPhoto="";
+
+function loadJournalForm() {
+  const date=document.getElementById("journalDate").value || todayKey();
+  const entry=getDailyJournal(date);
+
+  document.getElementById("journalHours").value=entry.hours || "";
+  document.getElementById("journalQuestions").value=entry.questions || "";
+  document.getElementById("journalMood").value=entry.mood || "";
+  document.getElementById("journalWork").value=entry.work || "";
+  document.getElementById("journalFeelings").value=entry.feelings || "";
+  document.getElementById("journalTomorrow").value=entry.tomorrow || "";
+
+  pendingPhoto=entry.photo || "";
+
+  const preview=document.getElementById("photoPreview");
+  if(pendingPhoto) {
+    preview.src=pendingPhoto;
+    preview.style.display="block";
+  } else {
+    preview.style.display="none";
+  }
+}
+
+document.getElementById("journalDate").value=todayKey();
+document.getElementById("journalDate").addEventListener("change",loadJournalForm);
+
+document.getElementById("journalPhoto").addEventListener("change",event=>{
+  const file=event.target.files[0];
+  if(!file) return;
+
+  if(!file.type.startsWith("image/")) {
+    toast("Lütfen bir fotoğraf seç.");
+    return;
+  }
+
+  const reader=new FileReader();
+
+  reader.onload=e=>{
+    const image=new Image();
+    image.onload=()=>{
+      const canvas=document.createElement("canvas");
+      const max=1000;
+      const scale=Math.min(1,max/Math.max(image.width,image.height));
+
+      canvas.width=Math.round(image.width*scale);
+      canvas.height=Math.round(image.height*scale);
+
+      const ctx=canvas.getContext("2d");
+      ctx.drawImage(image,0,0,canvas.width,canvas.height);
+
+      pendingPhoto=canvas.toDataURL("image/jpeg",0.72);
+
+      const preview=document.getElementById("photoPreview");
+      preview.src=pendingPhoto;
+      preview.style.display="block";
+    };
+
+    image.src=e.target.result;
+  };
+
+  reader.readAsDataURL(file);
 });
-render();
+
+function saveJournal() {
+  const date=document.getElementById("journalDate").value;
+  if(!date) {
+    toast("Bir tarih seç.");
+    return;
+  }
+
+  state.journals[date]={
+    hours:Math.max(0,Number(document.getElementById("journalHours").value)||0),
+    questions:Math.max(0,Number(document.getElementById("journalQuestions").value)||0),
+    mood:document.getElementById("journalMood").value,
+    work:document.getElementById("journalWork").value,
+    feelings:document.getElementById("journalFeelings").value,
+    tomorrow:document.getElementById("journalTomorrow").value,
+    photo:pendingPhoto
+  };
+
+  saveState();
+  renderJournal();
+  renderHome();
+  renderStats();
+  toast("Günlük kaydedildi.");
+}
+
+function clearJournal() {
+  if(!confirm("Bu formdaki alanları temizlemek istiyor musun?")) return;
+
+  ["journalHours","journalQuestions","journalMood",
+   "journalWork","journalFeelings","journalTomorrow"].forEach(id=>{
+    document.getElementById(id).value="";
+  });
+
+  pendingPhoto="";
+  document.getElementById("photoPreview").style.display="none";
+  document.getElementById("journalPhoto").value="";
+}
+
+function renderJournal() {
+  loadJournalForm();
+
+  const host=document.getElementById("journalHistory");
+  const dates=Object.keys(state.journals).sort().reverse();
+
+  if(!dates.length) {
+    host.innerHTML='<div class="card sub">Henüz günlük kaydı yok.</div>';
+    return;
+  }
+
+  host.innerHTML=dates.map(date=>{
+    const e=state.journals[date];
+
+    return `
+      <div class="card" style="margin-bottom:10px">
+        <div class="between">
+          <strong>${formatDate(date)}</strong>
+          <button class="btn" onclick="openJournalDate('${date}')">Düzenle</button>
+        </div>
+        <div class="campaign-meta">
+          <span>${e.hours||0} saat</span>
+          <span>${e.questions||0} soru</span>
+          <span>${escapeHTML(e.mood||"Durum belirtilmedi")}</span>
+        </div>
+        <p class="sub">${escapeHTML(e.work||"Henüz çalışma notu yok.")}</p>
+        ${e.photo?`<img src="${e.photo}" style="width:100%;max-height:220px;object-fit:cover;border-radius:10px;filter:grayscale(1)">`:""}
+      </div>`;
+  }).join("");
+}
+
+function openJournalDate(date) {
+  document.getElementById("journalDate").value=date;
+  loadJournalForm();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ---------- MÜZİK ---------- */
+
+function extractYouTubeId(url) {
+  try {
+    const parsed=new URL(url);
+    const host=parsed.hostname.replace("www.","");
+
+    if(host==="youtu.be")
+      return parsed.pathname.slice(1);
+
+    if(host==="youtube.com" || host==="m.youtube.com" ||
+       host==="music.youtube.com") {
+      if(parsed.pathname==="/watch")
+        return parsed.searchParams.get("v");
+
+      const match=parsed.pathname.match(/\/(embed|shorts)\/([^/?]+)/);
+      if(match) return match[2];
+    }
+  } catch(error) {
+    return null;
+  }
+
+  return null;
+}
+
+function saveMusic() {
+  const url=document.getElementById("youtubeUrl").value.trim();
+  const title=document.getElementById("musicTitle").value.trim();
+  const id=extractYouTubeId(url);
+
+  if(!id) {
+    toast("Geçerli bir YouTube bağlantısı gir.");
+    return;
+  }
+
+  state.music.url=url;
+  state.music.title=title || "Çalışma müziğim";
+  saveState();
+
+  loadMusicUI();
+  toast("Müzik bağlantısı kaydedildi.");
+}
+
+function loadMusicUI() {
+  document.getElementById("youtubeUrl").value=state.music.url||"";
+  document.getElementById("musicTitle").value=state.music.title||"";
+  document.getElementById("musicName").textContent=
+    state.music.title||"Senin çalışma müziğin";
+
+  const id=extractYouTubeId(state.music.url||"");
+  const frame=document.getElementById("youtubeFrame");
+
+  if(id && frame.dataset.video!==id) {
+    frame.src="https://www.youtube-nocookie.com/embed/"+id+
+      "?autoplay=0&rel=0";
+    frame.dataset.video=id;
+  }
+
+  playerMode(state.music.mode||"large");
+}
+
+function playerMode(mode) {
+  const box=document.getElementById("playerBox");
+  box.classList.remove("compact","hidden-player");
+
+  if(mode==="compact") box.classList.add("compact");
+  if(mode==="hidden") box.classList.add("hidden-player");
+
+  state.music.mode=mode;
+  saveState();
+}
+
+function stopMusic() {
+  const frame=document.getElementById("youtubeFrame");
+  frame.src="";
+  frame.dataset.video="";
+  toast("Oynatıcı durduruldu.");
+}
+
+/* ---------- POMODORO ---------- */
+
+let focusMinutes=25;
+let breakMinutes=5;
+let remaining=focusMinutes*60;
+let timerInterval=null;
+let isBreak=false;
+
+function updateTimerDisplay() {
+  const minutes=Math.floor(remaining/60);
+  const seconds=remaining%60;
+
+  document.getElementById("timerDisplay").textContent=
+    pad(minutes)+":"+pad(seconds);
+
+  document.getElementById("timerLabel").textContent=
+    isBreak?"MOLA":"ODAKLANMA";
+}
+
+function setTimer(focus,rest) {
+  pauseTimer();
+  focusMinutes=focus;
+  breakMinutes=rest;
+  isBreak=false;
+  remaining=focusMinutes*60;
+  updateTimerDisplay();
+
+  document.getElementById("timerInfo").textContent=
+    focus+" dakika çalışma, "+rest+" dakika mola.";
+}
+
+function startTimer() {
+  if(timerInterval) return;
+
+  timerInterval=setInterval(()=>{
+    remaining--;
+    updateTimerDisplay();
+
+    if(remaining<=0) {
+      clearInterval(timerInterval);
+      timerInterval=null;
+
+      if(!isBreak) {
+        isBreak=true;
+        remaining=breakMinutes*60;
+        toast("Odak süresi tamamlandı. Mola zamanı!");
+      } else {
+        isBreak=false;
+        remaining=focusMinutes*60;
+        toast("Mola bitti. Yeni odak zamanı!");
+      }
+
+      updateTimerDisplay();
+    }
+  },1000);
+}
+
+function pauseTimer() {
+  if(timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval=null;
+  }
+}
+
+function resetTimer() {
+  pauseTimer();
+  isBreak=false;
+  remaining=focusMinutes*60;
+  updateTimerDisplay();
+}
+
+/* ---------- İSTATİSTİKLER ---------- */
+
+function renderStats() {
+  const entries=Object.entries(state.journals);
+  const totalHours=entries.reduce((sum,[,e])=>sum+Number(e.hours||0),0);
+  const totalQuestions=entries.reduce((sum,[,e])=>sum+Number(e.questions||0),0);
+
+  document.getElementById("totalHours").textContent=
+    totalHours.toFixed(1);
+
+  document.getElementById("totalQuestions").textContent=
+    totalQuestions.toLocaleString("tr-TR");
+
+  document.getElementById("recordedDays").textContent=entries.length;
+
+  const today=todayKey();
+  const weekStart=addDays(today,-6);
+
+  const weekEntries=entries.filter(([date])=>
+    date>=weekStart && date<=today
+  );
+
+  const weekHours=weekEntries.reduce(
+    (sum,[,e])=>sum+Number(e.hours||0),0
+  );
+
+  const maxHours=Math.max(
+    1,
+    ...Array.from({length:7},(_,i)=>{
+      const date=addDays(weekStart,i);
+      return Number(state.journals[date]?.hours||0);
+    })
+  );
+
+  let bars="";
+
+  for(let i=0;i<7;i++) {
+    const date=addDays(weekStart,i);
+    const hours=Number(state.journals[date]?.hours||0);
+    const height=hours/maxHours*125;
+
+    bars+=`
+      <div class="bar-wrap">
+        <div class="bar" style="height:${height}px"></div>
+        <div class="bar-label">${parseDate(date).toLocaleDateString("tr-TR",{weekday:"short"})}</div>
+        <div class="bar-label">${hours} sa.</div>
+      </div>`;
+  }
+
+  document.getElementById("weeklyChart").innerHTML=bars;
+
+  const now=new Date();
+  const monthPrefix=now.getFullYear()+"-"+pad(now.getMonth()+1);
+
+  const monthEntries=entries.filter(([date])=>
+    date.startsWith(monthPrefix)
+  );
+
+  const monthHours=monthEntries.reduce(
+    (sum,[,e])=>sum+Number(e.hours||0),0
+  );
+
+  const monthQuestions=monthEntries.reduce(
+    (sum,[,e])=>sum+Number(e.questions||0),0
+  );
+
+  document.getElementById("monthHours").textContent=
+    monthHours.toFixed(1);
+
+  document.getElementById("monthQuestions").textContent=
+    monthQuestions.toLocaleString("tr-TR");
+
+  document.getElementById("averageHours").textContent=
+    entries.length?(totalHours/entries.length).toFixed(1):"0";
+
+}
+
+/* ---------- HEDEFLER ---------- */
+
+function addGoal() {
+  const input=document.getElementById("goalInput");
+  const text=input.value.trim();
+
+  if(!text) {
+    toast("Önce bir hedef yaz.");
+    return;
+  }
+
+  state.goals.push({
+    id:makeId(),
+    text,
+    done:false
+  });
+
+  input.value="";
+  saveState();
+  renderGoals();
+}
+
+function toggleGoal(id,checked) {
+  const goal=state.goals.find(g=>g.id===id);
+  if(!goal) return;
+
+  goal.done=checked;
+  saveState();
+  renderGoals();
+}
+
+function deleteGoal(id) {
+  state.goals=state.goals.filter(g=>g.id!==id);
+  saveState();
+  renderGoals();
+}
+
+function renderGoals() {
+  const host=document.getElementById("goalList");
+
+  if(!state.goals.length) {
+    host.innerHTML='<p class="sub">Henüz hedef eklemedin.</p>';
+  } else {
+    host.innerHTML=state.goals.map(goal=>`
+      <div class="task ${goal.done?"done":""}">
+        <input type="checkbox" ${goal.done?"checked":""}
+          onchange="toggleGoal('${goal.id}',this.checked)">
+        <span class="task-name">${escapeHTML(goal.text)}</span>
+        <button class="icon-btn"
+          onclick="deleteGoal('${goal.id}')">Sil</button>
+      </div>`).join("");
+  }
+
+  document.getElementById("motivationText").value=
+    state.motivation||"";
+
+  renderTopics();
+}
+
+function saveMotivation() {
+  state.motivation=
+    document.getElementById("motivationText").value;
+
+  saveState();
+  toast("Notun kaydedildi.");
+}
+
+/* ---------- KONU TAKİBİ ---------- */
+
+function addTopic() {
+  const subject=document.getElementById("topicSubject").value;
+  const name=document.getElementById("topicName").value.trim();
+  const questions=Math.max(
+    0,
+    Number(document.getElementById("topicQuestions").value)||0
+  );
+
+  if(!name) {
+    toast("Konu adını yazmalısın.");
+    return;
+  }
+
+  state.topics.push({
+    id:makeId(),
+    subject,
+    name,
+    questions
+  });
+
+  document.getElementById("topicName").value="";
+  document.getElementById("topicQuestions").value="";
+
+  saveState();
+  renderTopics();
+  renderStats();
+}
+
+function deleteTopic(id) {
+  state.topics=state.topics.filter(t=>t.id!==id);
+  saveState();
+  renderTopics();
+}
+
+function renderTopics() {
+  const host=document.getElementById("topicList");
+
+  if(!state.topics.length) {
+    host.innerHTML='<p class="sub">Henüz konu eklenmedi.</p>';
+    return;
+  }
+
+  host.innerHTML=state.topics.map(topic=>`
+    <div class="task">
+      <div class="task-name">
+        <strong>${escapeHTML(topic.name)}</strong>
+        <div class="sub">${escapeHTML(topic.subject)} · ${topic.questions} soru</div>
+      </div>
+      <button class="icon-btn"
+        onclick="deleteTopic('${topic.id}')">Sil</button>
+    </div>`).join("");
+}
+
+/* ---------- AYARLAR ---------- */
+
+function renderSettings() {
+  document.getElementById("examDate").value=state.examDate;
+}
+
+function saveExamDate() {
+  const value=document.getElementById("examDate").value;
+
+  if(!value) {
+    toast("Bir sınav tarihi seç.");
+    return;
+  }
+
+  state.examDate=value;
+  saveState();
+  renderCountdown();
+  toast("Sınav tarihi güncellendi.");
+}
+
+/* ---------- YEDEKLEME ---------- */
+
+function downloadBackup() {
+  const blob=new Blob(
+    [JSON.stringify(state,null,2)],
+    {type:"application/json"}
+  );
+
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+
+  a.href=url;
+  a.download="after-hours-yks-yedek-"+todayKey()+".json";
+  a.click();
+
+  URL.revokeObjectURL(url);
+  toast("Yedek indirildi.");
+}
+
+function restoreBackup(event) {
+  const file=event.target.files[0];
+  if(!file) return;
+
+  const reader=new FileReader();
+
+  reader.onload=()=>{
+    try {
+      const imported=JSON.parse(reader.result);
+
+      if(!imported || !Array.isArray(imported.campaigns)) {
+        throw new Error("Geçersiz yedek dosyası");
+      }
+
+      if(!confirm("Mevcut kayıtların içe aktarılan yedekle değiştirilecek. Devam edilsin mi?"))
+        return;
+
+      state={
+        ...structuredClone(initialState),
+        ...imported
+      };
+
+      saveState();
+      location.reload();
+    } catch(error) {
+      toast("Yedek dosyası okunamadı.");
+    }
+  };
+
+  reader.readAsText(file);
+}
+
+function clearAllData() {
+  const confirmed=confirm(
+    "Bütün çalışma kayıtların, günlüklerin ve hedeflerin silinecek. Emin misin?"
+  );
+
+  if(!confirmed) return;
+
+  const second=confirm("Son kez soruyorum: Bütün verileri sıfırlamak istiyor musun?");
+  if(!second) return;
+
+  localStorage.removeItem("afterHoursYKS_v1");
+  location.reload();
+}
+
+/* ---------- GÜVENLİ METİN ---------- */
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g,char=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[char]));
+}
+
+/* ---------- İLK AÇILIŞ ---------- */
+
+function initialize() {
+  document.getElementById("journalDate").value=todayKey();
+
+  renderHome();
+  renderProgram();
+  renderCampaigns();
+  renderJournal();
+  renderStats();
+  renderGoals();
+  loadMusicUI();
+  renderSettings();
+  updateTimerDisplay();
+
+  /* İlk açılışta haftalık odağı yükle */
+  document.getElementById("weeklyFocus").value=
+    state.weeklyFocus[currentWeek] || "";
+}
+
+initialize();
+
+/* ---------- TARAYICI SAYFASI GÜNCELLENDİĞİNDE ---------- */
+
+document.addEventListener("visibilitychange",()=>{
+  if(!document.hidden) {
+    renderCountdown();
+  }
+});
+
 </script>
 </body>
 </html>
