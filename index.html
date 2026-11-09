@@ -1,0 +1,632 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AFTER HOURS | YKS Journal</title>
+<style>
+:root{
+ --bg:#101114;--panel:#191a1e;--panel2:#202126;
+ --text:#ededee;--muted:#92939b;--line:#303137;
+ --accent:#a7a7b0;--green:#9aafa0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+ font-family:Inter,Arial,sans-serif;line-height:1.6}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.hero{
+ min-height:310px;display:flex;align-items:flex-end;
+ padding:35px 7%;position:relative;overflow:hidden;
+ background:linear-gradient(0deg,#101114 0%,#10111455 60%,#10111433),
+ url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1800') center 48%/cover;
+ filter:grayscale(1)
+}
+.hero-content{filter:none;position:relative;z-index:1}
+.eyebrow{font-size:11px;letter-spacing:4px;color:#c3c3c7}
+.hero h1{font-size:clamp(36px,7vw,65px);letter-spacing:5px;
+ margin:8px 0;font-weight:300}
+.hero p{color:#d0d0d3;margin:0}
+nav{position:sticky;top:0;z-index:10;background:#121316ed;
+ backdrop-filter:blur(15px);border-bottom:1px solid var(--line);
+ display:flex;gap:7px;padding:12px 4%;overflow-x:auto}
+nav a{color:#aaa;text-decoration:none;white-space:nowrap;
+ padding:7px 12px;border-radius:6px;font-size:12px}
+nav a:hover{background:#303137;color:white}
+.container{max-width:1150px;margin:auto;padding:28px 18px 70px}
+section{margin-bottom:40px;scroll-margin-top:80px}
+.section-title{font-size:20px;font-weight:400;letter-spacing:1px;
+ margin:0 0 15px}
+.sub{color:var(--muted);font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px}
+.card{background:var(--panel);border:1px solid var(--line);
+ border-radius:12px;padding:18px;min-width:0}
+.stat strong{font-size:29px;font-weight:300;display:block}
+.stat span{color:var(--muted);font-size:11px;letter-spacing:1px}
+.countdown{background:#202126;padding:25px;border-radius:12px;
+ text-align:center;border:1px solid #37383e}
+.count-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+ max-width:600px;margin:20px auto}
+.count-grid strong{font-size:clamp(25px,5vw,40px);font-weight:300;display:block}
+.count-grid span{font-size:10px;color:#aaa;letter-spacing:2px}
+input,textarea,select{background:#111216;color:var(--text);
+ border:1px solid var(--line);border-radius:7px;padding:10px;width:100%;
+ outline:none}
+input:focus,textarea:focus{border-color:#92939b}
+textarea{resize:vertical}
+label{display:block;color:var(--muted);font-size:12px;margin:9px 0 5px}
+.btn{background:#303137;color:white;border:1px solid #45464d;
+ border-radius:7px;padding:9px 13px;font-size:12px}
+.btn:hover{background:#484950}
+.btn.main{background:#dedee1;color:#16171a;border:0}
+.btn.danger{color:#d99a9a}
+.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.between{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.progress{height:5px;background:#34353b;border-radius:10px;overflow:hidden;margin:13px 0}
+.progress div{height:100%;background:#aaaeb3;transition:.3s}
+.course{margin-bottom:12px}
+.course h3{font-size:16px;font-weight:400;margin:0}
+.course small{color:var(--muted)}
+.course-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.course-actions button{font-size:11px}
+.tag{font-size:10px;color:#c2c2c7;border:1px solid #44454b;
+ padding:4px 8px;border-radius:20px}
+.player{display:flex;gap:15px;align-items:center;flex-wrap:wrap}
+.player-art{width:80px;height:80px;object-fit:cover;filter:grayscale(1);
+ border-radius:5px;background:#303137}
+#youtubeFrame{width:100%;max-width:430px;aspect-ratio:16/9;border:0;
+ border-radius:8px}
+#youtubeFrame.hidden-player{position:fixed;width:1px;height:1px;
+ opacity:0;left:-10px;bottom:0;pointer-events:none}
+#youtubeFrame.compact-player{max-width:190px}
+#youtubeFrame.expanded-player{max-width:430px}
+.photo{max-width:100%;max-height:300px;object-fit:cover;
+ border-radius:8px;margin-top:12px;filter:grayscale(1)}
+.timer{text-align:center;padding:25px}
+.timer-number{font-size:65px;font-weight:200;letter-spacing:4px}
+textarea{min-height:95px}
+.entry{border-bottom:1px solid var(--line);padding:12px 0}
+.entry:last-child{border:0}
+.check{display:flex;gap:9px;align-items:center;margin:8px 0}
+.check input{width:auto}
+.muted{color:var(--muted)}
+footer{text-align:center;padding:25px;color:#686970;font-size:11px}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+ background:#ddd;color:#111;padding:10px 20px;border-radius:8px;
+ display:none;z-index:30;font-size:12px}
+@media(max-width:550px){
+ .hero{min-height:250px;padding:25px 20px}
+ .count-grid{gap:3px}
+ .container{padding:22px 13px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+ <div class="hero-content">
+  <div class="eyebrow">MY PERSONAL STUDY JOURNAL</div>
+  <h1>AFTER HOURS.</h1>
+  <p>Somewhere between today and the future.</p>
+  <p id="heroDate" class="sub"></p>
+ </div>
+</header>
+
+<nav>
+ <a href="#home">HOME</a>
+ <a href="#music">MUSIC</a>
+ <a href="#courses">CAMPS</a>
+ <a href="#journal">JOURNAL</a>
+ <a href="#timer">POMODORO</a>
+ <a href="#stats">STATISTICS</a>
+ <a href="#goals">GOALS</a>
+ <a href="#settings">SETTINGS</a>
+</nav>
+
+<main class="container">
+
+<section id="home">
+ <div class="between">
+  <div>
+   <div class="eyebrow">MONDAY / YOUR JOURNEY</div>
+   <h2 class="section-title">Welcome back.</h2>
+  </div>
+  <span class="tag" id="todayLabel"></span>
+ </div>
+
+ <div class="grid">
+  <div class="card stat"><span>TODAY'S STUDY</span>
+   <strong id="todayHours">0.0 h</strong><small class="muted">Recorded hours</small></div>
+  <div class="card stat"><span>TOTAL STUDY</span>
+   <strong id="totalHours">0 h</strong><small class="muted">All recorded days</small></div>
+  <div class="card stat"><span>COMPLETED CAMP DAYS</span>
+   <strong id="completedDays">0</strong><small class="muted">Your progress</small></div>
+  <div class="card stat"><span>COMPLETED QUESTIONS</span>
+   <strong id="totalQuestions">0</strong><small class="muted">All subjects</small></div>
+ </div>
+
+ <div class="card" style="margin-top:14px">
+  <div class="eyebrow">TODAY'S FOCUS</div>
+  <h2 class="section-title">One day at a time.</h2>
+  <div id="todayTasks"></div>
+  <p class="sub">Today's plan can change. Your progress matters more.</p>
+ </div>
+</section>
+
+<section id="music">
+ <h2 class="section-title">♫ Music room</h2>
+ <div class="card">
+  <div class="player">
+   <img class="player-art"
+    src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=300"
+    alt="City at night">
+   <div style="flex:1;min-width:150px">
+    <div class="eyebrow">NOW PLAYING</div>
+    <strong id="musicTitle">Your soundtrack</strong>
+    <p class="sub">YouTube player</p>
+   </div>
+   <button class="btn" onclick="setPlayer('compact')">Small</button>
+   <button class="btn" onclick="setPlayer('expanded')">Large</button>
+   <button class="btn" onclick="setPlayer('hidden')">Hide</button>
+  </div>
+  <div id="playerArea" style="margin-top:15px">
+   <iframe id="youtubeFrame" title="YouTube music player"
+    src="about:blank" allow="autoplay; encrypted-media; picture-in-picture"
+    allowfullscreen></iframe>
+  </div>
+  <div class="grid" style="margin-top:14px">
+   <div><label>YouTube video link</label>
+    <input id="youtubeUrl" placeholder="Paste a YouTube link"></div>
+   <div><label>Song name</label>
+    <input id="songName" placeholder="Song / artist"></div>
+  </div>
+  <div class="row" style="margin-top:12px">
+   <button class="btn main" onclick="loadMusic()">Play song</button>
+   <button class="btn" onclick="stopMusic()">Stop</button>
+  </div>
+  <p class="sub">YouTube playback requires an internet connection. Start playback yourself; automatic playback may be blocked by the browser. Hiding the player does not stop the music.</p>
+ </div>
+</section>
+
+<section id="courses">
+ <h2 class="section-title">Study campaigns</h2>
+ <p class="sub">A delayed day moves the remaining schedule of that campaign only.</p>
+ <div id="courseList"></div>
+ <button class="btn main" onclick="addCourse()">+ Add campaign</button>
+</section>
+
+<section id="journal">
+ <h2 class="section-title">Daily journal</h2>
+ <div class="card">
+  <label>Select a day</label>
+  <input type="date" id="journalDate">
+  <div class="grid">
+   <div><label>Study hours</label>
+    <input type="number" id="hours" min="0" max="24" step=".25" placeholder="e.g. 5.5"></div>
+   <div><label>Number of questions</label>
+    <input type="number" id="questions" min="0" placeholder="e.g. 120"></div>
+   <div><label>How was your day?</label>
+    <select id="mood">
+     <option>Good</option><option>Productive</option>
+     <option>Average</option><option>Difficult</option><option>Rest day</option>
+    </select>
+   </div>
+  </div>
+  <label>What did I study?</label>
+  <textarea id="studyNote" placeholder="Which subjects, topics, or tasks did you work on?"></textarea>
+  <label>How did my day go?</label>
+  <textarea id="dayNote" placeholder="Write freely. What happened today?"></textarea>
+  <label>Questions for tomorrow / reminders</label>
+  <textarea id="tomorrowNote" placeholder="What do I want to remember?"></textarea>
+  <label>Today's photo</label>
+  <input type="file" id="photoInput" accept="image/*">
+  <img id="photoPreview" class="photo" hidden alt="Today's journal photo">
+  <div class="row" style="margin-top:15px">
+   <button class="btn main" onclick="saveJournal()">Save this day</button>
+   <button class="btn" onclick="clearJournal()">Clear fields</button>
+  </div>
+ </div>
+ <div class="card" style="margin-top:14px">
+  <h3 style="font-weight:400">Past entries</h3>
+  <div id="journalHistory"></div>
+ </div>
+</section>
+
+<section id="timer">
+ <h2 class="section-title">Focus room</h2>
+ <div class="card timer">
+  <div class="eyebrow">POMODORO TIMER</div>
+  <div class="timer-number" id="timerDisplay">25:00</div>
+  <div class="row" style="justify-content:center">
+   <button class="btn main" id="timerButton" onclick="toggleTimer()">Start</button>
+   <button class="btn" onclick="resetTimer()">Reset</button>
+  </div>
+  <div class="row" style="justify-content:center;margin-top:15px">
+   <button class="btn" onclick="setTimer(25)">25 / 5</button>
+   <button class="btn" onclick="setTimer(50)">50 / 10</button>
+   <button class="btn" onclick="setTimer(90)">90 min</button>
+  </div>
+  <p class="sub" id="timerStatus">A little focus goes a long way.</p>
+ </div>
+</section>
+
+<section id="stats">
+ <h2 class="section-title">Statistics</h2>
+ <div class="grid">
+  <div class="card stat"><span>THIS WEEK</span><strong id="weekHours">0 h</strong></div>
+  <div class="card stat"><span>THIS MONTH</span><strong id="monthHours">0 h</strong></div>
+  <div class="card stat"><span>DAILY AVERAGE</span><strong id="averageHours">0 h</strong></div>
+  <div class="card stat"><span>JOURNAL ENTRIES</span><strong id="entryCount">0</strong></div>
+ </div>
+ <div class="card" style="margin-top:14px">
+  <h3 style="font-weight:400">Last 7 days · Study hours</h3>
+  <div id="weeklyChart"></div>
+ </div>
+</section>
+
+<section id="goals">
+ <h2 class="section-title">Personal goals</h2>
+ <div class="card">
+  <div class="row">
+   <input id="goalInput" placeholder="Write a goal..." style="flex:1">
+   <button class="btn main" onclick="addGoal()">Add</button>
+  </div>
+  <div id="goalList" style="margin-top:15px"></div>
+ </div>
+ <div class="card" style="margin-top:14px">
+  <h3 style="font-weight:400">Topic & question tracker</h3>
+  <div class="grid">
+   <div><label>Subject</label><input id="topicSubject" placeholder="TYT Mathematics"></div>
+   <div><label>Topic</label><input id="topicName" placeholder="Fractions"></div>
+   <div><label>Questions solved</label><input id="topicQuestions" type="number" min="0" placeholder="0"></div>
+  </div>
+  <button class="btn main" style="margin-top:12px" onclick="addTopic()">Add topic</button>
+  <div id="topicList"></div>
+ </div>
+</section>
+
+<section id="motivation">
+ <h2 class="section-title">A note to myself</h2>
+ <div class="card">
+  <p class="sub">Write something you want to remember when studying gets difficult.</p>
+  <textarea id="motivationText" placeholder="Why did I start? What am I working towards?"></textarea>
+  <button class="btn main" style="margin-top:10px" onclick="saveMotivation()">Save motivation</button>
+ </div>
+</section>
+
+<section id="countdown">
+ <div class="countdown">
+  <div class="eyebrow">THE COUNTDOWN</div>
+  <h2 class="section-title">Until YKS.</h2>
+  <div class="count-grid">
+   <div><strong id="cdDays">--</strong><span>DAYS</span></div>
+   <div><strong id="cdHours">--</strong><span>HOURS</span></div>
+   <div><strong id="cdMinutes">--</strong><span>MINUTES</span></div>
+   <div><strong id="cdSeconds">--</strong><span>SECONDS</span></div>
+  </div>
+  <p class="sub">The date can be updated when the official exam calendar is announced.</p>
+  <input type="date" id="examDate" style="max-width:220px">
+ </div>
+</section>
+
+<section id="settings">
+ <h2 class="section-title">Settings & backup</h2>
+ <div class="card">
+  <p class="sub">Your information is saved in this browser. Make regular backups.</p>
+  <div class="row">
+   <button class="btn main" onclick="exportData()">Download backup</button>
+   <button class="btn" onclick="document.getElementById('importFile').click()">Restore backup</button>
+   <input id="importFile" type="file" accept=".json" hidden>
+  </div>
+  <label>Weekly focus</label>
+  <textarea id="weeklyFocus" placeholder="What matters most this week?"></textarea>
+  <button class="btn main" style="margin-top:10px" onclick="saveFocus()">Save weekly focus</button>
+ </div>
+</section>
+</main>
+
+<footer>AFTER HOURS · MADE FOR MY FUTURE SELF.</footer>
+<div id="toast"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const today=()=>new Date().toLocaleDateString('en-CA');
+const dateText=d=>new Date(d+'T12:00:00').toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'});
+const shift=(d,n)=>{let x=new Date(d+'T12:00:00');x.setDate(x.getDate()+n);return x.toLocaleDateString('en-CA')};
+const initial={
+ courses:[
+  {id:1,name:'AYT Mathematics',total:80,start:'2026-11-09',done:0,offset:0,info:'Day 1 starts today.'},
+  {id:2,name:'Geometry',total:58,start:'2026-11-11',done:0,offset:0,info:'Basic geometry days 11 and 12 first. Main camp starts Wednesday.'},
+  {id:3,name:'TYT Mathematics',total:55,start:'2026-11-16',done:0,offset:0,info:'Basic study this week. Start from day 7 next Monday.'},
+  {id:4,name:'AYT Literature',total:25,start:'',done:0,offset:0,info:'Starts after TYT Mathematics.'},
+  {id:5,name:'TYT Science',total:null,start:'',done:0,offset:0,info:'Starts after literature.'},
+  {id:6,name:'Social studies',total:null,start:'',done:0,offset:0,info:'Add individual subject durations when decided.'}
+ ],
+ journals:{},goals:[],topics:[],motivation:'',weeklyFocus:'',
+ examDate:'2027-06-19',music:{url:'',name:'',mode:'expanded'}
+};
+let data;
+try{data=JSON.parse(localStorage.getItem('afterHours'))||structuredClone(initial)}
+catch(e){data=structuredClone(initial)}
+function save(){localStorage.setItem('afterHours',JSON.stringify(data));render()}
+function toast(t){$('toast').textContent=t;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',2000)}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+$('heroDate').textContent=new Date().toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+$('todayLabel').textContent=dateText(today());
+$('journalDate').value=today();
+$('examDate').value=data.examDate;
+
+function render(){
+ renderCourses();renderStats();renderGoals();renderTopics();renderHistory();
+ $('motivationText').value=data.motivation||'';
+ $('weeklyFocus').value=data.weeklyFocus||'';
+ $('todayHours').textContent=(data.journals[today()]?.hours||0)+' h';
+ $('todayTasks').innerHTML=`
+ <div class="check"><span>□</span> AYT Mathematics · Day 1</div>
+ <div class="check"><span>□</span> Basic Geometry · Day 11</div>
+ <div class="check"><span>□</span> Paragraph practice</div>
+ <p class="sub">Edit your personal daily notes in the journal below.</p>`;
+}
+function renderCourses(){
+ $('courseList').innerHTML=data.courses.map(c=>{
+ let pct=c.total?Math.min(100,Math.round(c.done/c.total*100)):0;
+ let start=c.start?shift(c.start,c.offset||0):'Not set';
+ return `<div class="card course">
+ <div class="between"><div><h3>${esc(c.name)}</h3><small>${esc(c.info||'')}</small></div>
+ <span class="tag">${c.total?c.done+' / '+c.total+' days':'Flexible duration'}</span></div>
+ <div class="progress"><div style="width:${pct}%"></div></div>
+ <small>${pct}% complete · Start: ${start}</small>
+ <div class="course-actions">
+ <button class="btn" onclick="completeCourse(${c.id})">✓ Complete day</button>
+ <button class="btn" onclick="delayCourse(${c.id})">+1 day delay</button>
+ <button class="btn" onclick="editCourse(${c.id})">Edit</button>
+ <button class="btn danger" onclick="deleteCourse(${c.id})">Delete</button>
+ </div></div>`;
+ }).join('');
+}
+function completeCourse(id){
+ let c=data.courses.find(x=>x.id===id);
+ if(c.total&&c.done>=c.total)return toast('This campaign is complete.');
+ c.done++;save();toast('Progress saved.');
+}
+function delayCourse(id){
+ let c=data.courses.find(x=>x.id===id);
+ c.offset=(c.offset||0)+1;save();toast('Campaign moved one day forward.');
+}
+function editCourse(id){
+ let c=data.courses.find(x=>x.id===id);
+ let name=prompt('Campaign name',c.name);if(name===null)return;
+ let total=prompt('Total days (leave empty if unknown)',c.total||'');
+ let start=prompt('Start date (YYYY-MM-DD)',c.start||'');
+ c.name=name.trim()||c.name;c.total=Number(total)||null;
+ c.start=start;c.info=prompt('Campaign note',c.info||'')??c.info;
+ save();
+}
+function deleteCourse(id){
+ if(confirm('Delete this campaign?')){data.courses=data.courses.filter(x=>x.id!==id);save()}
+}
+function addCourse(){
+ let name=prompt('Campaign name');if(!name)return;
+ let total=Number(prompt('How many days? (0 if unknown)')||0);
+ let start=prompt('Start date YYYY-MM-DD (optional)','');
+ data.courses.push({id:Date.now(),name,total:total||null,start,done:0,offset:0,info:''});save();
+}
+
+function saveJournal(){
+ let d=$('journalDate').value;if(!d)return;
+ let old=data.journals[d]||{};
+ let photo=old.photo||'';
+ let file=$('photoInput').files[0];
+ const store=photo=>{
+  data.journals[d]={hours:Number($('hours').value)||0,
+   questions:Number($('questions').value)||0,
+   mood:$('mood').value,study:$('studyNote').value,
+   note:$('dayNote').value,tomorrow:$('tomorrowNote').value,photo};
+  save();toast('Journal saved.');
+ };
+ if(file){
+  let reader=new FileReader();
+  reader.onload=e=>{
+   let img=new Image();
+   img.onload=()=>{
+    let canvas=document.createElement('canvas');
+    let scale=Math.min(1,850/Math.max(img.width,img.height));
+    canvas.width=img.width*scale;canvas.height=img.height*scale;
+    canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+    store(canvas.toDataURL('image/jpeg',.65));
+   };img.src=e.target.result;
+  };reader.readAsDataURL(file);
+ }else store(photo);
+}
+function loadJournal(){
+ let d=$('journalDate').value, j=data.journals[d];
+ $('hours').value=j?.hours??'';
+ $('questions').value=j?.questions??'';
+ $('mood').value=j?.mood||'Good';
+ $('studyNote').value=j?.study||'';
+ $('dayNote').value=j?.note||'';
+ $('tomorrowNote').value=j?.tomorrow||'';
+ $('photoPreview').hidden=!j?.photo;
+ if(j?.photo)$('photoPreview').src=j.photo;
+ $('photoInput').value='';
+}
+function clearJournal(){
+ ['hours','questions','studyNote','dayNote','tomorrowNote'].forEach(id=>$(id).value='');
+ $('photoInput').value='';$('photoPreview').hidden=true;
+}
+$('journalDate').addEventListener('change',loadJournal);
+loadJournal();
+
+function renderHistory(){
+ let keys=Object.keys(data.journals).sort().reverse();
+ $('journalHistory').innerHTML=keys.length?keys.map(d=>{
+ let j=data.journals[d];
+ return `<div class="entry"><div class="between"><strong>${dateText(d)}</strong>
+ <span class="tag">${j.hours} hours · ${j.mood}</span></div>
+ <p class="sub">${esc(j.study||j.note||'No written note')}</p>
+ <button class="btn" onclick="openEntry('${d}')">Open entry</button></div>`;
+ }).join(''):'<p class="sub">Your journal entries will appear here.</p>';
+}
+function openEntry(d){$('journalDate').value=d;loadJournal();$('journal').scrollIntoView({behavior:'smooth'})}
+
+function renderStats(){
+ let entries=Object.entries(data.journals);
+ let hours=entries.reduce((s,[d,j])=>s+(Number(j.hours)||0),0);
+ let questions=entries.reduce((s,[d,j])=>s+(Number(j.questions)||0),0);
+ let completed=data.courses.reduce((s,c)=>s+(c.done||0),0);
+ let now=new Date(),weekStart=new Date(now);
+ weekStart.setDate(now.getDate()-((now.getDay()+6)%7));
+ let month=now.toLocaleDateString('en-CA').slice(0,7);
+ let week=entries.filter(([d])=>new Date(d+'T12:00:00')>=weekStart)
+ .reduce((s,[d,j])=>s+(+j.hours||0),0);
+ let monthHours=entries.filter(([d])=>d.startsWith(month))
+ .reduce((s,[d,j])=>s+(+j.hours||0),0);
+ $('totalHours').textContent=hours.toFixed(1)+' h';
+ $('completedDays').textContent=completed;
+ $('totalQuestions').textContent=questions;
+ $('weekHours').textContent=week.toFixed(1)+' h';
+ $('monthHours').textContent=monthHours.toFixed(1)+' h';
+ $('averageHours').textContent=(entries.length?hours/entries.length:0).toFixed(1)+' h';
+ $('entryCount').textContent=entries.length;
+ let days=Array.from({length:7},(_,i)=>shift(today(),i-6));
+ let max=Math.max(1,...days.map(d=>+(data.journals[d]?.hours||0)));
+ $('weeklyChart').innerHTML=days.map(d=>{
+ let h=+(data.journals[d]?.hours||0);
+ return `<div style="margin:13px 0">
+ <div class="between"><small>${dateText(d)}</small><small>${h} h</small></div>
+ <div class="progress"><div style="width:${h/max*100}%"></div></div></div>`;
+ }).join('');
+}
+
+function addGoal(){
+ let text=$('goalInput').value.trim();if(!text)return;
+ data.goals.push({id:Date.now(),text,done:false});
+ $('goalInput').value='';save();
+}
+function renderGoals(){
+ $('goalList').innerHTML=data.goals.map(g=>
+ `<div class="check">
+ <input type="checkbox" ${g.done?'checked':''} onchange="toggleGoal(${g.id})">
+ <span style="${g.done?'text-decoration:line-through;color:#777':''}">${esc(g.text)}</span>
+ <button class="btn danger" onclick="removeGoal(${g.id})">×</button>
+ </div>`).join('')||'<p class="sub">No goals added yet.</p>';
+}
+function toggleGoal(id){let g=data.goals.find(x=>x.id===id);g.done=!g.done;save()}
+function removeGoal(id){data.goals=data.goals.filter(x=>x.id!==id);save()}
+
+function addTopic(){
+ let subject=$('topicSubject').value.trim(),name=$('topicName').value.trim();
+ let questions=Number($('topicQuestions').value)||0;
+ if(!subject||!name)return toast('Enter a subject and topic.');
+ data.topics.push({id:Date.now(),subject,name,questions});
+ ['topicSubject','topicName','topicQuestions'].forEach(x=>$(x).value='');
+ save();
+}
+function renderTopics(){
+ $('topicList').innerHTML=data.topics.map(t=>
+ `<div class="entry between"><div><strong>${esc(t.subject)}</strong>
+ <div class="sub">${esc(t.name)} · ${t.questions} questions</div></div>
+ <button class="btn danger" onclick="removeTopic(${t.id})">×</button></div>`
+ ).join('')||'<p class="sub">No topics recorded yet.</p>';
+}
+function removeTopic(id){data.topics=data.topics.filter(t=>t.id!==id);save()}
+
+function saveMotivation(){data.motivation=$('motivationText').value;save();toast('Saved.')}
+function saveFocus(){data.weeklyFocus=$('weeklyFocus').value;save();toast('Weekly focus saved.')}
+
+let timerSeconds=1500,remaining=1500,running=false,interval=null;
+function showTimer(){
+ $('timerDisplay').textContent=String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0');
+}
+function setTimer(min){
+ clearInterval(interval);running=false;
+ timerSeconds=min*60;remaining=timerSeconds;
+ $('timerButton').textContent='Start';$('timerStatus').textContent='Ready to focus.';
+ showTimer();
+}
+function toggleTimer(){
+ if(running){clearInterval(interval);running=false;$('timerButton').textContent='Resume';return}
+ running=true;$('timerButton').textContent='Pause';
+ interval=setInterval(()=>{
+  remaining--;showTimer();
+  if(remaining<=0){
+   clearInterval(interval);running=false;
+   $('timerButton').textContent='Start';
+   $('timerStatus').textContent='Session complete. Take a break!';
+   toast('Focus session complete!');
+  }
+ },1000);
+}
+function resetTimer(){setTimer(timerSeconds/60)}
+
+function getVideoId(url){
+ try{
+  let u=new URL(url);
+  if(u.hostname.includes('youtu.be'))return u.pathname.slice(1);
+  if(u.searchParams.get('v'))return u.searchParams.get('v');
+  let m=u.pathname.match(/\/embed\/([^/]+)/);return m?.[1]||'';
+ }catch{return /^[\w-]{11}$/.test(url)?url:''}
+}
+function loadMusic(){
+ let url=$('youtubeUrl').value.trim(),id=getVideoId(url);
+ if(!id)return toast('Enter a valid YouTube link or video ID.');
+ data.music={url,name:$('songName').value||'YouTube music',mode:data.music.mode||'expanded'};
+ $('musicTitle').textContent=data.music.name;
+ $('youtubeFrame').src='https://www.youtube.com/embed/'+id+'?autoplay=1&enablejsapi=1';
+ saveMusic();
+ setPlayer(data.music.mode);
+}
+function saveMusic(){localStorage.setItem('afterHours',JSON.stringify(data))}
+function stopMusic(){$('youtubeFrame').src='about:blank';toast('Playback stopped.')}
+function setPlayer(mode){
+ data.music.mode=mode;saveMusic();
+ let f=$('youtubeFrame');
+ f.className=mode==='hidden'?'hidden-player':mode==='compact'?'compact-player':'expanded-player';
+ $('playerArea').style.display='block';
+}
+if(data.music?.url){
+ $('youtubeUrl').value=data.music.url;
+ $('songName').value=data.music.name||'';
+ $('musicTitle').textContent=data.music.name||'Your soundtrack';
+}
+setPlayer(data.music?.mode||'expanded');
+
+function countdown(){
+ let target=new Date(data.examDate+'T00:00:00');
+ let diff=target-new Date();
+ if(!data.examDate||isNaN(target)||diff<0){
+  ['cdDays','cdHours','cdMinutes','cdSeconds'].forEach(x=>$(x).textContent='--');return;
+ }
+ let d=Math.floor(diff/86400000);
+ let h=Math.floor(diff%86400000/3600000);
+ let m=Math.floor(diff%3600000/60000);
+ let s=Math.floor(diff%60000/1000);
+ $('cdDays').textContent=d;
+ $('cdHours').textContent=h;
+ $('cdMinutes').textContent=m;
+ $('cdSeconds').textContent=s;
+}
+$('examDate').addEventListener('change',()=>{
+ data.examDate=$('examDate').value;save();countdown();
+});
+setInterval(countdown,1000);countdown();
+
+function exportData(){
+ let blob=new Blob([JSON.stringify(data)],{type:'application/json'});
+ let a=document.createElement('a');
+ a.href=URL.createObjectURL(blob);a.download='after-hours-backup.json';
+ a.click();URL.revokeObjectURL(a.href);
+}
+$('importFile').addEventListener('change',async e=>{
+ try{
+  let imported=JSON.parse(await e.target.files[0].text());
+  if(!imported.courses||!imported.journals)throw Error();
+  data=imported;save();toast('Backup restored.');
+ }catch{toast('Invalid backup file.')}
+});
+render();
+</script>
+</body>
+</html>
